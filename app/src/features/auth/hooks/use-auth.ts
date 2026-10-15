@@ -1,106 +1,60 @@
-import { adminLoginToAccount, refreshAccountToken, signIn, signUp } from "../services/auth";
-import { useMutation } from "@tanstack/react-query";
-import { useAuthStore } from "@/stores/auth";
-import { useNavigate } from "react-router-dom";
-import type { SignInUser, SignUpUser } from "../interfaces/auth.interface";
-import { Routes } from "@/routes/routes";
-import type { LoggedInUser } from "@/features/user/interfaces/user.interface";
-import { toast } from "@/hooks/use-toast";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { authApi, type LoginDto, type RegisterDto } from '../services/auth.services';
+import { useSessionStore } from '@/stores/session-store';
+import { queryKeys } from '@/api/query-keys';
+import { outbox } from '@/api/outbox';
 
-
-export function useSignin() {
-    const { login } = useAuthStore((state) => state);
-    const navigate = useNavigate();
-
-    return useMutation({
-        mutationFn: (data: SignInUser) => signIn(data),
-        onSuccess: (data: LoggedInUser) => {
-            login({
-                ...data,
-                isLoggedIn: true,
-            });
-            toast({
-                title: "Login successful",
-                description: "You have successfully logged in",
-                duration: 2000,
-            });
-            navigate(Routes.dashboard);
-        },
-        onError: (error: any) => {
-            toast({
-                title: "Could not sign in",
-                description: error?.message || "An unexpected error occurred",
-                duration: 3000,
-                variant: "error",
-            });
-        },
-    });
+/** Sign in with email-or-username; populates the session on success. */
+export function useLogin() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (dto: LoginDto) => authApi.login(dto),
+    onSuccess: ({ user }) => {
+      useSessionStore.getState().setMe(user);
+      void qc.invalidateQueries({ queryKey: queryKeys.progress });
+      void outbox.flush();
+    },
+  });
 }
 
-
-export function useSignup() {
-    const { login } = useAuthStore((state) => state);
-    const navigate = useNavigate();
-
-    return useMutation({
-        mutationFn: (data: SignUpUser) => signUp(data),
-        onSuccess: (data) => {
-            login({
-                ...data,
-                isLoggedIn: true,
-            });
-            toast({
-                title: "Register successful",
-                description: "You have successfully registered in",
-                duration: 2000,
-            });
-            navigate("/dashboard");
-        },
-        onError: (error) => {
-            toast({
-                title: "Could not sign up",
-                description: error.message,
-                duration: 3000,
-                variant: "error",
-            });
-        },
-    });
+/** Create an account; the API signs the user in immediately (verification is non-blocking). */
+export function useRegister() {
+  return useMutation({
+    mutationFn: (dto: RegisterDto) => authApi.register(dto),
+    onSuccess: ({ user }) => useSessionStore.getState().setMe(user),
+  });
 }
 
-
-export function useRefreshAccountToken() {
-    const { login } = useAuthStore((state) => state);
-    return useMutation({
-        mutationFn: () => refreshAccountToken(),
-        onSuccess: (data: LoggedInUser) => {
-            login({ ...data, isLoggedIn: true });
-        },
-    });
+/** Sign out everywhere locally, even if the request fails (e.g. offline). */
+export function useLogout() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => authApi.logout().catch(() => undefined),
+    onSettled: () => {
+      useSessionStore.getState().clear();
+      qc.clear();
+    },
+  });
 }
 
-export function useAdminLoginToAccount() {
-    const { login } = useAuthStore((state) => state);
+export function useForgotPassword() {
+  return useMutation({ mutationFn: (email: string) => authApi.forgotPassword(email) });
+}
 
-    return useMutation({
-        mutationFn: (account_uuid: string) => adminLoginToAccount(account_uuid),
-        onSuccess: (data: LoggedInUser) => {
-            toast({
-                title: "Admin login successful",
-                description: "You have successfully logged in as admin",
-                duration: 2000,
-            });
-            login({
-                ...data,
-                isLoggedIn: true,
-            });
-        },
-        onError: (error: any) => {
-            toast({
-                title: "Could not admin login to account",
-                description: error.message,
-                duration: 3000,
-                variant: "error",
-            });
-        },
-    });
+export function useResetPassword() {
+  return useMutation({ mutationFn: ({ token, password }: { token: string; password: string }) => authApi.resetPassword(token, password) });
+}
+
+export function useVerifyEmail() {
+  return useMutation({
+    mutationFn: (token: string) => authApi.verifyEmail(token),
+    onSuccess: () => {
+      const { me, patchMe } = useSessionStore.getState();
+      if (me) patchMe({ emailVerified: true });
+    },
+  });
+}
+
+export function useResendVerification() {
+  return useMutation({ mutationFn: () => authApi.resendVerification() });
 }

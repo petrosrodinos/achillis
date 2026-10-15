@@ -1,0 +1,324 @@
+[
+  {
+    "id": "portraits/white-knight",
+    "outPath": "portraits/white-knight.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. A heroic knight in gleaming white-silver plate armour, closed great helm with a narrow eye slit and a tall white plume, pale blue tabard with a gold cross on the chest, gold trim.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/bronze-knight",
+    "outPath": "portraits/bronze-knight.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. The Bronze Knight \"Brown Feather\": a knight in bronze-brown plate armour, an open nasal helm showing a determined bearded face, one tall brown feather rising from the helm, tan leather straps.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/mysterious-knight",
+    "outPath": "portraits/mysterious-knight.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. The Mysterious Knight: dark violet-grey plate armour, a deep dark hood drawn over a closed great helm, faint glowing arcane violet accents in the eye slit and armour seams, mysterious and calm.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/green-chestnut",
+    "outPath": "portraits/green-chestnut.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. Green Chestnut, a Saracen lieutenant: a bearded warrior with a chestnut-brown turban, olive-green robe over chainmail, a round shield edge visible at the shoulder, confident expression.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/black-knight",
+    "outPath": "portraits/black-knight.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. The Black Knight, the villain: black plate armour with oxblood-red trim, a black horned great helm with a narrow menacing eye slit, dark and imposing.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/saracen-leader-1",
+    "outPath": "portraits/saracen-leader-1.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. A Saracen leader: a proud commander with a white turban, crimson and gold robes over chainmail, gold embroidery, a short dark beard.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/saracen-leader-2",
+    "outPath": "portraits/saracen-leader-2.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. A Saracen leader: a stern warrior in indigo and silver robes over chainmail, a pointed spiked steel helm with a chainmail aventail covering the neck, a dark beard.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/pink-paladin",
+    "outPath": "portraits/pink-paladin.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. A tournament paladin in polished steel plate armour, closed great helm with a plume, dusty rose tabard with cream trim.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/red-paladin",
+    "outPath": "portraits/red-paladin.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. A tournament paladin in polished steel plate armour, closed great helm with a plume, brick red tabard with straw-gold trim.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/blue-paladin",
+    "outPath": "portraits/blue-paladin.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. Oliver the Blue Paladin: polished steel plate armour, closed great helm with a plume, steel blue tabard with silver trim.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/deer-paladin",
+    "outPath": "portraits/deer-paladin.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. Renault the Deer Paladin: polished steel plate armour, closed great helm crowned with a pair of deer antlers, tan-brown tabard with dark brown trim.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/orange-paladin",
+    "outPath": "portraits/orange-paladin.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. A tournament paladin in polished steel plate armour, closed great helm with a plume, burnt orange tabard with dark charcoal trim.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/yellow-paladin",
+    "outPath": "portraits/yellow-paladin.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. A tournament paladin in polished steel plate armour, closed great helm with a plume, ochre yellow tabard with dark brown trim.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  },
+  {
+    "id": "portraits/emperor-knight",
+    "outPath": "portraits/emperor-knight.webp",
+    "style": "portrait",
+    "prompt": "Bust portrait of a single character. The Emperor Knight: ornate gold-plated armour with deep imperial purple cloth, a great helm encircled by a golden crown with a plume, a purple cape with gold embroidery, majestic.",
+    "size": "1024x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 768,
+        "height": 768,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Character portrait"
+  }
+]

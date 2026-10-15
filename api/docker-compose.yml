@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: white-knight-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: white_knight
+      POSTGRES_USER: wk
+      POSTGRES_PASSWORD: wk_local_pw
+    ports:
+      - '5433:5432'
+    volumes:
+      - white_knight_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U wk -d white_knight']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  white_knight_pg:

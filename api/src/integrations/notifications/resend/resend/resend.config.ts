@@ -14,7 +14,9 @@ export class ResendConfig {
   private initResend() {
     const apiKey = this.configService.get<string>('RESEND_API_KEY');
     if (!apiKey) {
-      this.logger.error('RESEND_API_KEY is not configured');
+      this.logger.warn(
+        'RESEND_API_KEY is not configured — emails will be logged instead of sent',
+      );
       return;
     }
 

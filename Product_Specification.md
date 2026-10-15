@@ -49,116 +49,116 @@ Percentages are computed as `done / total × 100`, rounded to a whole number. **
 ### 0.4 Todo list
 
 #### P0 — Setup & Pipeline
-- [~] **P0-01** Create `tools/` workspace and `ASSETS.md` licence log — `tools/blender/` created; `ASSETS.md` still missing @claude 2026-10-15
+- [x] **P0-01** Create `tools/` workspace and `ASSETS.md` licence log — `tools/blender/`, `tools/audio/` (+ `tools/generate-images/`); `ASSETS.md` at repo root with per-team sections (Audio filled, all CC0) @claude @audio-agent 2026-10-15
 - [x] **P0-02** Install/verify Blender CLI — Blender 5.2.2 LTS at `C:\Program Files\Blender Foundation\Blender 5.2/blender.exe` (not on PATH); headless run + Draco `.glb` export verified via `tools/blender/smoke_test.py`; README docs still to write under P8-09
-- [ ] **P0-03** Blender script framework: shared helpers for materials, palette, rig, export to optimised `.glb` ← needs P0-02
-- [ ] **P0-04** Image generation script (`tools/generate-images`) reading `OPENAI_API_KEY` from `.env.temp`, prompt files, shared style prompt, post-processing (tiling, WebP)
-- [ ] **P0-05** Confirm `.env.temp` is git-ignored and the key can never reach the client bundle
-- [ ] **P0-06** Asset loading pipeline in client (`useGLTF`, Draco/Meshopt, per-mission lazy bundles)
-- [ ] **P0-07** Audio manager and sourced SFX/music packs with licences ← needs P0-01
-- [ ] **P0-08** Generate parallax layers for all environments in section 13 ← needs P0-04
-- [ ] **P0-09** Generate ground textures (dirt, grass, sand, stone, snow) ← needs P0-04
-- [ ] **P0-10** Generate menu art, mission illustrations and icons ← needs P0-04
+- [x] **P0-03** Blender script framework: shared helpers for materials, palette, rig, export to optimised `.glb` ← needs P0-02 @blender-agent 2026-10-15 — `tools/blender/lib/` (geom/materials/rig/anim/export/gltf), runner `tools/blender/build.py`, `validate.py`, `render_preview.py`, README
+- [x] **P0-04** Image generation script (`tools/generate-images`) reading `OPENAI_API_KEY` from `.env.temp`, prompt files, shared style prompt, post-processing (tiling, WebP) — tools/generate-images/ (generate/postprocess/previews/build-prompts, prompts/*.json, README); gpt-image-2 opaque + gpt-image-1.5 transparent; sharp offset-blend tiling, WebP
+- [x] **P0-05** Confirm `.env.temp` is git-ignored and the key can never reach the client bundle — .env.temp git-ignored; Vite only loads app/.env* VITE_ vars; `npm run check-secrets` in tools/generate-images scans app/src, app/public, app/dist, app/.env*. WARNING: the current key is in pushed commit d1b6c0b (origin/main) — owner must rotate it and purge history
+- [x] **P0-06** Asset loading pipeline in client (`useGLTF`, Draco/Meshopt, per-mission lazy bundles) @lead 2026-10-15 — app/src/render/models/model-library.ts (GLTFLoader + self-hosted Draco/Meshopt, clip baking to instanced parts), per-mission preload behind the loading screen in pages/play (models, env textures, audio)
+- [x] **P0-07** Audio manager and sourced SFX/music packs with licences ← needs P0-01 @lead 2026-10-15 — packs by @audio-agent; client manager app/src/core/audio/audio-manager.ts (music/ambience/sfx buses, variants, panning, loops, synth fallback) + render/vfx/director.ts maps every sim event to sound
+- [x] **P0-08** Generate parallax layers for all environments in section 13 ← needs P0-04 — app/public/assets/images/env/<envId>/{sky,far,mid,fore}.webp for all 29 envs + env/_fog/{light,dark,storm}.webp (2048x1024, tile horizontally)
+- [x] **P0-09** Generate ground textures (dirt, grass, sand, stone, snow) ← needs P0-04 — app/public/assets/images/ground/{dirt,grass,sand,stone,snow,wood,marble}.webp (1024², tile both axes)
+- [x] **P0-10** Generate menu art, mission illustrations and icons ← needs P0-04 — app/public/assets/images/ui/{title,menu,parchment}.webp, missions/m01-m15.webp, portraits/<CharacterId>.webp (14), icons/*.webp (14)
 
 #### P1 — Foundation & Design System
-- [ ] **P1-01** Remove shadcn components/usage from `app/`; set up Tailwind 4 `@theme` tokens (colors, type, spacing, motion)
-- [ ] **P1-02** Medieval font selection and loading
-- [ ] **P1-03** Core components: buttons, panels/frames, modals, tabs, tooltips ← needs P1-01
-- [ ] **P1-04** Form components: inputs, checkbox, select, key-binding display ← needs P1-01
-- [ ] **P1-05** Segmented health bar, boss health bar, mana bar ← needs P1-01
-- [ ] **P1-06** HUD layout (top-left/center/right per section 5) ← needs P1-05
-- [ ] **P1-07** App shell, routing, title screen, main menu, settings (volume, key remap)
-- [ ] **P1-08** Fixed-timestep game loop and simulation store outside React render
-- [ ] **P1-09** Orthographic side camera with dead zone and smoothing
-- [ ] **P1-10** Parallax background system (5 layers) and ground renderer ← needs P0-08
-- [ ] **P1-11** Input system with remappable bindings (WASD, Space, Shift, E, mouse)
-- [ ] **P1-12** Loading screens, error boundaries, WebGL context-loss handling
+- [x] **P1-01** Remove shadcn components/usage from `app/`; set up Tailwind 4 `@theme` tokens (colors, type, spacing, motion) — shadcn removed; Tailwind 4 `@theme` tokens in app/src/index.css
+- [x] **P1-02** Medieval font selection and loading — Cinzel Decorative / Cinzel / EB Garamond via @fontsource in index.css
+- [x] **P1-03** Core components: buttons, panels/frames, modals, tabs, tooltips ← needs P1-01 — app/src/ui/ (button, panel, modal, tabs, tooltip); showcase /dev/ui
+- [x] **P1-04** Form components: inputs, checkbox, select, key-binding display ← needs P1-01 — app/src/ui/field.tsx, toggles.tsx, slider.tsx, select.tsx, key-binding.tsx
+- [x] **P1-05** Segmented health bar, boss health bar, mana bar ← needs P1-01 — app/src/ui/bars.tsx (SegmentedHealthBar, BossHealthBar, ManaBar, XpBar, LevelBadge)
+- [x] **P1-06** HUD layout (top-left/center/right per section 5) ← needs P1-05 @lead 2026-10-15 — pages/play/components/game-hud.tsx (top-left name/health/lives/enemies, top-centre kills + boss bar, top-right mission/stage/level, banners, callouts)
+- [x] **P1-07** App shell, routing, title screen, main menu, settings (volume, key remap) — app/src/App.tsx, routes/app-routes.tsx, pages/{title,menu,settings}; ui/settings-panel.tsx (game canvas is the lead's)
+- [x] **P1-08** Fixed-timestep game loop and simulation store outside React render @lead 2026-10-15 — render/game-canvas.tsx GameDriver (60 Hz fixed step, hit-stop), core/sim/world.ts; React only re-renders on HUD changes (core/hud/hud-store.ts)
+- [x] **P1-09** Orthographic side camera with dead zone and smoothing @lead 2026-10-15 — render/game-canvas.tsx (orthographic, dead zone, damped follow, duel framing, shake with reduced-motion opt-out)
+- [x] **P1-10** Parallax background system (5 layers) and ground renderer ← needs P0-08 @lead 2026-10-15 — render/scene/environment.tsx (sky/far/mid/fog/fore parallax, tilted textured ground with depth shading, sea/cloud surface for flight)
+- [x] **P1-11** Input system with remappable bindings (WASD, Space, Shift, E, mouse) @lead 2026-10-15 — core/input/input-manager.ts (bindings from settings store, edge buffering, mouse buttons, virtual touch input) + core/engine/player-controller.ts
+- [x] **P1-12** Loading screens, error boundaries, WebGL context-loss handling — ui/loading-screen.tsx, ui/error-boundary.tsx, pages/error; WebGL context loss is the lead's
 
 #### P2 — Accounts & Backend
-- [ ] **P2-01** Prisma schema: User, Profile, MissionProgress, ScoreEntry, UnlockedCharacter, Settings
-- [ ] **P2-02** Register endpoint with validation, bcrypt, unique username, email verification ← needs P2-01
-- [ ] **P2-03** Login/refresh/logout with JWT (httpOnly cookies) ← needs P2-01
-- [ ] **P2-04** Password reset flow by email ← needs P2-02
-- [ ] **P2-05** Rate limiting and security hardening on auth endpoints
-- [ ] **P2-06** `GET /me`, `PATCH /me/settings` ← needs P2-03
-- [ ] **P2-07** Register and login screens wired to API ← needs P1-04, P2-03
-- [ ] **P2-08** Auth guard / session handling in client; redirect rules
-- [ ] **P2-09** API unit and e2e tests for auth
-- [ ] **P2-10** Profile screen (username, level, points, unlocked characters) ← needs P2-06
+- [x] **P2-01** Prisma schema: User, Profile, MissionProgress, ScoreEntry, UnlockedCharacter, Settings — api/prisma/schema.prisma, migration init_white_knight
+- [x] **P2-02** Register endpoint with validation, bcrypt, unique username, email verification ← needs P2-01 — api/src/modules/auth/ (auth.service, email-verification.service), api/src/shared/utils/profanity/
+- [x] **P2-03** Login/refresh/logout with JWT (httpOnly cookies) ← needs P2-01 — api/src/modules/auth/services/auth-tokens.service.ts (rotation + reuse detection), api/src/shared/config/cookies/
+- [x] **P2-04** Password reset flow by email ← needs P2-02 — api/src/modules/auth/services/password.service.ts, templates/password-reset.hbs
+- [x] **P2-05** Rate limiting and security hardening on auth endpoints — throttler limits (api/src/shared/config/throttle/), CSRF guard, helmet, ValidationPipe in api/src/app.setup.ts
+- [x] **P2-06** `GET /me`, `PATCH /me/settings` ← needs P2-03 — api/src/modules/profile/ (profile.controller.ts, config/settings.config.ts)
+- [x] **P2-07** Register and login screens wired to API ← needs P1-04, P2-03 — pages/{login,register,forgot-password,reset-password,verify-email}; features/auth
+- [x] **P2-08** Auth guard / session handling in client; redirect rules — stores/session-store.ts, routes/guards.tsx, api/client.ts (single-flight refresh), bootstrap/settings-sync.ts
+- [x] **P2-09** API unit and e2e tests for auth — api/src/**/*.spec.ts (70 unit), api/test/*.e2e-spec.ts (27 e2e on white_knight_test)
+- [x] **P2-10** Profile screen (username, level, points, unlocked characters) ← needs P2-06 — pages/profile
 
 #### P3 — Duel Engine
-- [ ] **P3-01** Typed Duel config schema (rounds, mounted/on-foot/no-helmet, opponent, boss module) with validation
-- [ ] **P3-02** Character controller: move, jump, dodge (i-frames + cooldown), block ← needs P1-08, P1-11
-- [ ] **P3-03** Attack system: light/heavy with anticipation, swing, impact, recovery
-- [ ] **P3-04** Hit feedback: hit pause, knockback, particles, SFX ← needs P0-07
-- [ ] **P3-05** Damage model, block-break and stagger, health blocks (4/6, 3/5)
-- [ ] **P3-06** Duel AI opponent (spacing, attack patterns, blocking, dodging, difficulty)
-- [ ] **P3-07** Round manager: round transitions, rules per round
-- [ ] **P3-08** Mounted phase: horse movement and dismount on health threshold
-- [ ] **P3-09** Helmet removal visuals and rule at designated round
-- [ ] **P3-10** Blender: White Knight, Black Knight and horse models with full animation set ← needs P0-03
-- [ ] **P3-11** Duel HUD and victory/defeat screens ← needs P1-06
-- [ ] **P3-12** Unit tests for combat math and round manager
+- [x] **P3-01** Typed Duel config schema (rounds, mounted/on-foot/no-helmet, opponent, boss module) with validation @lead 2026-10-15 — engines/duel/duel-config.ts (zod, refinements)
+- [x] **P3-02** Character controller: move, jump, dodge (i-frames + cooldown), block ← needs P1-08, P1-11 @lead 2026-10-15 — core/sim/fighter.ts (move/jump/dodge i-frames+cooldown/block, input buffer)
+- [x] **P3-03** Attack system: light/heavy with anticipation, swing, impact, recovery @lead 2026-10-15 — core/combat/combat-config.ts ATTACK_TIMING + combat-math.ts attackPhaseAt (4 phases mapped onto clip time); extended moveset: shield bash, jump slash, plunging strike, dodge-lunge, combo finisher, riposte
+- [x] **P3-04** Hit feedback: hit pause, knockback, particles, SFX ← needs P0-07 @lead 2026-10-15 — world.strike (hit-stop, knockback), render/vfx/{particles,director}.ts (sparks, dust, flashes, SFX), hit flash in instanced shader
+- [x] **P3-05** Damage model, block-break and stagger, health blocks (4/6, 3/5) @lead 2026-10-15 — combat-math.ts resolveMeleeHit (block, block-break stagger, parry, helmetless multiplier), segments 4/6 & 3/5
+- [x] **P3-06** Duel AI opponent (spacing, attack patterns, blocking, dodging, difficulty) @lead 2026-10-15 — core/ai/controllers.ts duelist (spacing, reactive block/dodge, punish, combos, guard-break bash, difficulty skill)
+- [x] **P3-07** Round manager: round transitions, rules per round @lead 2026-10-15 — engines/duel/duel-controller.ts (rounds, intro/round-end phases, hpAtOrBelow thresholds)
+- [x] **P3-08** Mounted phase: horse movement and dismount on health threshold @lead 2026-10-15 — DuelController.applyRound (mounted pools 150/6 → on foot 100/4, dismount events), horse rendering via Saddle anchor
+- [x] **P3-09** Helmet removal visuals and rule at designated round @lead 2026-10-15 — round helmets flag → helmet-off event, loadout mask shows hair (render/actors/pose.ts), ×1.25 damage when helmetless
+- [x] **P3-10** Blender: White Knight, Black Knight and horse models with full animation set ← needs P0-03 @blender-agent 2026-10-15 — shared `app/public/assets/models/humanoid.glb` (all §4.1 variants, 26 clips) + `horse.glb` (6 clips); built by `tools/blender/build_humanoid.py` / `build_horse.py`, validated + previewed
+- [x] **P3-11** Duel HUD and victory/defeat screens ← needs P1-06 @lead 2026-10-15 — game-hud.tsx (player/opponent bars, boss bar + mana), pages/play/components/results-screen.tsx (victory/defeat, score breakdown, XP, unlocks, outro story)
+- [x] **P3-12** Unit tests for combat math and round manager @lead 2026-10-15 — core/combat/combat-math.test.ts, core/sim/moves.test.ts, missions/missions.test.ts
 
 #### P4 — Progress, Points & Leaderboards
-- [ ] **P4-01** Mission start/complete endpoints with signed run tokens ← needs P2-03
-- [ ] **P4-02** Auto-save on mission start and completion; Continue from last mission
-- [ ] **P4-03** Strict linear unlock logic; Training Grounds always accessible once unlocked
-- [ ] **P4-04** Scoring config and server-side score validation/plausibility checks
-- [ ] **P4-05** XP and level curve; level display in HUD and profile
-- [ ] **P4-06** Leaderboard endpoints (global, per-mission, weekly/monthly/all-time) with caching ← needs P4-04
-- [ ] **P4-07** Leaderboard screen UI with current-user highlight ← needs P1-03, P4-06
-- [ ] **P4-08** Emperor Knight high-score unlock tracked separately
+- [x] **P4-01** Mission start/complete endpoints with signed run tokens ← needs P2-03 — api/src/modules/progress/ (signed run tokens, auto-save, linear unlocks)
+- [x] **P4-02** Auto-save on mission start and completion; Continue from last mission — client side: features/progress/utils/progress.utils.ts (Continue), core/save/local-save.ts, api/outbox.ts
+- [x] **P4-03** Strict linear unlock logic; Training Grounds always accessible once unlocked — client side: missionStatus() in progress.utils.ts, pages/campaign
+- [x] **P4-04** Scoring config and server-side score validation/plausibility checks — api/src/modules/score/config/scoring.config.ts, api/src/modules/progress/config/missions.catalog.ts, score/utils/score.utils.ts
+- [x] **P4-05** XP and level curve; level display in HUD and profile @lead 2026-10-15 — server curve by @backend-agent; level shown in HUD top-right (game-hud.tsx) and results XP bar
+- [x] **P4-06** Leaderboard endpoints (global, per-mission, weekly/monthly/all-time) with caching ← needs P4-04 — api/src/modules/leaderboard/ (30 s cache via api/src/shared/services/cache/)
+- [x] **P4-07** Leaderboard screen UI with current-user highlight ← needs P1-03, P4-06 — pages/leaderboard, ui/leaderboard-table.tsx
+- [x] **P4-08** Emperor Knight high-score unlock tracked separately — progress.service.ts recordVictory + Profile.emperor_knight_unlocked_at, EMPEROR_KNIGHT_POINTS_THRESHOLD
 
 #### P5 — Quest Engine
-- [ ] **P5-01** Typed Quest config schema (slides, waves, hazards, mount, boss, playable character) with validation
-- [ ] **P5-02** Ground traversal on long horizontal levels with scrolling camera
-- [ ] **P5-03** Slide system: transitions, per-slide background/enemies/hazards
-- [ ] **P5-04** Wave spawner (5 / 10 / 15 scaling, configurable) and gating before advance
-- [ ] **P5-05** Enemy AI: infantry, spearmen, archers
-- [ ] **P5-06** Enemy AI: bandits, wild animals, Vikings, Balkan soldiers
-- [ ] **P5-07** Enemy AI: ghosts, zombies, servants
-- [ ] **P5-08** Projectile system: arrows, spears, javelins, fortress/foreign-city projectiles (blockable flag)
-- [ ] **P5-09** Environmental hazards: traps, falling objects, birds
-- [ ] **P5-10** Wind gusts and storms (push / damage)
+- [x] **P5-01** Typed Quest config schema (slides, waves, hazards, mount, boss, playable character) with validation @lead 2026-10-15 — engines/quest/quest-config.ts (ground/flight/boss slides, waves, hazards, escort, allies; cross-field validation)
+- [x] **P5-02** Ground traversal on long horizontal levels with scrolling camera @lead 2026-10-15 — engines/quest/quest-engine.ts + camera hints
+- [x] **P5-03** Slide system: transitions, per-slide background/enemies/hazards @lead 2026-10-15 — QuestEngine.setupSlide/advance (fade transitions, per-slide env/ground/hazards)
+- [x] **P5-04** Wave spawner (5 / 10 / 15 scaling, configurable) and gating before advance @lead 2026-10-15 — QuestEngine.startWave/updateWave (triggers along slide, arena lock, maxAlive, 5/10/15 per slide in configs)
+- [x] **P5-05** Enemy AI: infantry, spearmen, archers @lead 2026-10-15 — core/ai/controllers.ts melee, spearman (throws), archer (kites + shoots)
+- [x] **P5-06** Enemy AI: bandits, wild animals, Vikings, Balkan soldiers @lead 2026-10-15 — skirmisher (bandits/servants), beast (wolves/boars lunge), brute (vikings), spearman (Balkan javelins)
+- [x] **P5-07** Enemy AI: ghosts, zombies, servants @lead 2026-10-15 — ghost (hovering, spectral rendering), brute (zombies), skirmisher (servants)
+- [x] **P5-08** Projectile system: arrows, spears, javelins, fortress/foreign-city projectiles (blockable flag) @lead 2026-10-15 — core/sim/projectiles.ts + World.fireProjectile (ballistic aim, blockable flag, shield deflection, stuck arrows)
+- [x] **P5-09** Environmental hazards: traps, falling objects, birds @lead 2026-10-15 — core/sim/hazards.ts (spike traps, falling objects, birds as flying enemies)
+- [x] **P5-10** Wind gusts and storms (push / damage) @lead 2026-10-15 — hazards.ts wind-gust (push, wave variant) + lightning storms; wind streak and rain VFX
 - [ ] **P5-11** Hippogryph flight mode: vertical movement, landing win condition
-- [ ] **P5-12** Boss-as-final-slide transition into Duel engine
-- [ ] **P5-13** Escort target and failure condition support
-- [ ] **P5-14** Quest HUD (remaining enemies, kill counter, stage indicator)
+- [x] **P5-12** Boss-as-final-slide transition into Duel engine @lead 2026-10-15 — QuestEngine.setupBoss runs DuelController on the final slide(s); lives retry the boss
+- [x] **P5-13** Escort target and failure condition support @lead 2026-10-15 — escort controller + failure condition (used by Mission 14)
+- [x] **P5-14** Quest HUD (remaining enemies, kill counter, stage indicator) @lead 2026-10-15 — game-hud.tsx (enemies remaining, kills, stage label, objective/prompt, flight progress)
 
 #### P6 — Open Field Engine
-- [ ] **P6-01** Typed Open Field config schema with validation
-- [ ] **P6-02** Army spawning, instanced rendering for infantry and cavalry
-- [ ] **P6-03** Unit AI: nearest-target auto attack, dead-body despawn
-- [ ] **P6-04** Orders: move, hold, retreat, charge, cycle selection (Q/R/F/MMB/Tab)
-- [ ] **P6-05** Enemy commanders and rout logic; victory/failure conditions
-- [ ] **P6-06** Performance pass for large armies (pooling, culling)
+- [x] **P6-01** Typed Open Field config schema with validation @lead 2026-10-15 — engines/open-field/open-field-config.ts
+- [x] **P6-02** Army spawning, instanced rendering for infantry and cavalry @lead 2026-10-15 — OpenFieldEngine constructor (squads, cavalry on horses), instanced rendering for all actors (render/models/instanced-model.ts)
+- [x] **P6-03** Unit AI: nearest-target auto attack, dead-body despawn @lead 2026-10-15 — nearest-target AI with order-based engage radius; corpses linger then dither-fade
+- [x] **P6-04** Orders: move, hold, retreat, charge, cycle selection (Q/R/F/MMB/Tab) @lead 2026-10-15 — OpenFieldEngine.readOrders/issue (Q/R/F/MMB/Tab), squads panel + minimap
+- [x] **P6-05** Enemy commanders and rout logic; victory/failure conditions @lead 2026-10-15 — OpenFieldEngine.updateCommanders (rout at strength threshold, flee off-field), victory/defeat conditions
+- [x] **P6-06** Performance pass for large armies (pooling, culling) @lead 2026-10-15 — per-part instancing with baked animation (no per-unit scene graph), pooled particles/projectile meshes, hit-stop limited to player-involved blows
 
 #### P7 — Missions & Bosses
-- [ ] **P7-01** Mission 1 config (Open Field, forest) ← needs P6-05
-- [ ] **P7-02** Mission 2 config (Duel, 2 rounds) ← needs P3-07
-- [ ] **P7-03** Mission 3 config + Black Knight 3-round boss ← needs P5-12
-- [ ] **P7-04** Mission 4 config + Mysterious Knight boss (beams, fireballs, ghost summon)
-- [ ] **P7-05** Mission 5 config + Wizard boss module (mana, no direct attack, terrain distortion, haunted trees)
-- [ ] **P7-06** Mission 6 config (sea voyage, playable Mysterious Knight, final Paladin duel)
-- [ ] **P7-07** Mission 7 Training Grounds: character/opponent select, mounted/foot
-- [ ] **P7-08** Mission 8 config + Witch Spirit boss module (stun, zombie reinforcements)
-- [ ] **P7-09** Mission 9 config (Hippogryph, hazards only, safe landing)
-- [ ] **P7-10** Mission 10 config + Bewitched Ally + Evil Witch tag-team module
-- [ ] **P7-11** Mission 11 config (Green Chestnut, Hippogryph) + Swamp Troll boss
-- [ ] **P7-12** Mission 12 config (Open Field, mercenary battle)
-- [ ] **P7-13** Mission 13 config (Emperor's Champion, 2 rounds)
-- [ ] **P7-14** Mission 14 config (Balkan journey, no boss)
-- [ ] **P7-15** Mission 15 config (final duel, 3 rounds) and campaign ending
+- [x] **P7-01** Mission 1 config (Open Field, forest) ← needs P6-05 @lead 2026-10-15 — missions/configs.ts m01
+- [x] **P7-02** Mission 2 config (Duel, 2 rounds) ← needs P3-07 @lead 2026-10-15 — m02
+- [x] **P7-03** Mission 3 config + Black Knight 3-round boss ← needs P5-12 @lead 2026-10-15 — m03 + Black Knight boss slide (3 rounds)
+- [x] **P7-04** Mission 4 config + Mysterious Knight boss (beams, fireballs, ghost summon) @lead 2026-10-15 — m04 + bosses/modules.ts MysteriousKnightModule
+- [x] **P7-05** Mission 5 config + Wizard boss module (mana, no direct attack, terrain distortion, haunted trees) @lead 2026-10-15 — m05 + WizardModule (untargetable, mana tiers, ghosts, quake, haunted trees)
+- [x] **P7-06** Mission 6 config (sea voyage, playable Mysterious Knight, final Paladin duel) @lead 2026-10-15 — m06 (Mysterious Knight playable, ships, storms, Blue Paladin duel)
+- [x] **P7-07** Mission 7 Training Grounds: character/opponent select, mounted/foot @lead 2026-10-15 — selection UI pages/training + missions/configs.ts trainingConfig
+- [x] **P7-08** Mission 8 config + Witch Spirit boss module (stun, zombie reinforcements) @lead 2026-10-15 — m08 + WitchSpiritModule
+- [x] **P7-09** Mission 9 config (Hippogryph, hazards only, safe landing) @lead 2026-10-15 — m09 (flight slides, landing zone)
+- [x] **P7-10** Mission 10 config + Bewitched Ally + Evil Witch tag-team module @lead 2026-10-15 — m10 + Bewitched Ally + EvilWitchModule tag-team (DuelController.tagIn)
+- [x] **P7-11** Mission 11 config (Green Chestnut, Hippogryph) + Swamp Troll boss @lead 2026-10-15 — m11 (Green Chestnut, flight, Swamp Troll)
+- [x] **P7-12** Mission 12 config (Open Field, mercenary battle) @lead 2026-10-15 — m12
+- [x] **P7-13** Mission 13 config (Emperor's Champion, 2 rounds) @lead 2026-10-15 — m13
+- [x] **P7-14** Mission 14 config (Balkan journey, no boss) @lead 2026-10-15 — m14 (escort)
+- [x] **P7-15** Mission 15 config (final duel, 3 rounds) and campaign ending @lead 2026-10-15 — m15 + campaign-complete outro in missions/catalog.ts
 
 #### P8 — Hardening & Release
-- [ ] **P8-01** Story/dialogue screens and mission briefings for all 15 missions
-- [ ] **P8-02** Balance pass: damage, health, wave sizes, difficulty, scoring
+- [x] **P8-01** Story/dialogue screens and mission briefings for all 15 missions @lead 2026-10-15 — missions/catalog.ts briefing/outro lines for all 15, DialogueBox on briefing and victory
+- [x] **P8-02** Balance pass: damage, health, wave sizes, difficulty, scoring @lead 2026-10-15 — AI cadence, difficulty table, open-field host sizes, server plausibility floors aligned with configs (iterative)
 - [ ] **P8-03** Performance pass: 60 FPS target, asset compression, bundle size
-- [ ] **P8-04** Accessibility pass: remapping, reduced motion, contrast, keyboard navigation
+- [x] **P8-04** Accessibility pass: remapping, reduced motion, contrast, keyboard navigation — menus: keyboard nav, focus rings, reduced motion (data-reduced-motion), AA contrast, key remap, responsive to 360px with 44px tap targets
 - [ ] **P8-05** Playwright e2e: register → play mission → score → leaderboard
-- [ ] **P8-06** Client error reporting and API logging
-- [ ] **P8-07** Save schema versioning and migrations
+- [x] **P8-06** Client error reporting and API logging @lead 2026-10-15 — server by @backend-agent; client reporter app/src/bootstrap/error-reporting.ts + ErrorBoundary
+- [x] **P8-07** Save schema versioning and migrations @lead 2026-10-15 — server by @backend-agent; client app/src/core/save/local-save.ts (versioned + migrations)
 - [ ] **P8-08** Production deployment (Vercel client, API pipeline, Prisma migrations, env config)
 - [ ] **P8-09** README, asset-generation docs, final `ASSETS.md` licence review
 

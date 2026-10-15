@@ -1,0 +1,21 @@
+{
+  "name": "white-knight-generate-images",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Build-time OpenAI image generation + post-processing for White Knight 2D art",
+  "scripts": {
+    "build-prompts": "node src/build-prompts.mjs",
+    "generate": "node src/generate.mjs",
+    "postprocess": "node src/postprocess.mjs",
+    "previews": "node src/previews.mjs",
+    "check-secrets": "node src/check-secrets.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "p-limit": "^6.2.0",
+    "sharp": "^0.34.5"
+  }
+}

@@ -1,0 +1,347 @@
+[
+  {
+    "id": "missions/m01",
+    "outPath": "missions/m01.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. A large medieval battle at the edge of a forest: the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword on a white warhorse leads the kingdom's army of footsoldiers and cavalry with blue banners against an enemy army with dark green banners, archers in the background, dust and morning light through the trees.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m02",
+    "outPath": "missions/m02.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. Single combat after the battle: the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword on a white warhorse faces the defeated enemy commander in dark green and iron armour with a nasal helm on a brown warhorse, both with raised swords, a ring of soldiers watching at a distance in a trampled forest clearing.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m03",
+    "outPath": "missions/m03.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword on foot at the stone bridge before the Moorish city gate of Cordova at dusk, facing the Black Knight, a menacing knight in black plate armour with oxblood-red trim and a black horned helm, heater shield, oversized sword mounted on a black warhorse, horseshoe arches with striped voussoirs and sandstone towers behind them, arrows in the air.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m04",
+    "outPath": "missions/m04.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword on a mountain coast path confronting the Mysterious Knight, a knight in dark violet-grey plate armour with a hooded great helm and faint glowing violet accents mounted on a dark horse and casting violet magic beams, a tall dark wizard tower on a crag under a stormy violet twilight sky.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m05",
+    "outPath": "missions/m05.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword inside a vast dark vaulted hall of shadowy mirrors, translucent spectral green ghosts and shambling grey-green zombies emerging from the mirrors, a tall robed wizard with a pointed hat and a glowing staff on a dais in the background, violet arcane light.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m06",
+    "outPath": "missions/m06.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the Mysterious Knight, a knight in dark violet-grey plate armour with a hooded great helm and faint glowing violet accents standing on the deck of a medieval cog sailing ship on a rough teal sea, sword drawn, enemy ships with archers nearby, storm clouds and wind-filled sails, a distant green European coast on the horizon.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m07",
+    "outPath": "missions/m07.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. A medieval tournament ground on a sunny day: two armoured paladins, one in a brick red tabard and one in a steel blue tabard, jousting on horseback with lances, colourful striped pavilions, wooden stands with spectators and fluttering pennants.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m08",
+    "outPath": "missions/m08.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword arriving at an ancient circle of standing stones on a misty moor at dusk, a translucent green witch spirit with a tattered hat and staff hovering among the stones casting spectral green magic, a small glowing sacred herb at the centre.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m09",
+    "outPath": "missions/m09.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword riding a hippogryph (eagle front, horse hind, large wings) high in a stormy sky with lightning, flying towards a dark enemy fortress on a crag in the distance, birds and wind streaks.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m10",
+    "outPath": "missions/m10.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword in a torchlit fortress dungeon facing the Bronze Knight \"Brown Feather\", a knight in bronze-brown plate armour with a nasal helm and one tall brown feather, who is bewitched with a sickly green glow in his eyes, while an evil witch with a pointed hat and staff laughs behind him beside a bubbling cauldron.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m11",
+    "outPath": "missions/m11.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. Green Chestnut, a Saracen lieutenant in a green robe over chainmail with a chestnut-brown turban, round shield and scimitar standing on a murky swamp coast protecting a frightened young lady in a simple dress behind him, facing a huge hunched mossy green-brown swamp troll with a giant wooden club, a hippogryph waiting nearby, fog and twisted trees.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m12",
+    "outPath": "missions/m12.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. A mercenary battle on a wide overcast plain: a lone paladin in slate grey armour without a crest, fighting for a neighbouring kingdom, charges with infantry and cavalry under foreign banners, a war camp and smoke in the background.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m13",
+    "outPath": "missions/m13.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. A grand imperial arena: a knight disguised as the Emperor in purple and gold armour with a crowned great helm faces the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword on horseback across the sand, tiered stands with purple and gold imperial banners and crowds.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m14",
+    "outPath": "missions/m14.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword and Green Chestnut, a Saracen lieutenant in a green robe over chainmail with a chestnut-brown turban, round shield and scimitar travelling on horseback along a winding road from autumn Balkan forests towards snowy Wallachian mountains, golden German wheat fields and a distant ducal castle visible ahead on the horizon.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  },
+  {
+    "id": "missions/m15",
+    "outPath": "missions/m15.webp",
+    "style": "illustration",
+    "prompt": "Story illustration, wide landscape composition. A wedding in a sunlit castle courtyard decorated with garlands and pennants, interrupted: the Black Knight, a menacing knight in black plate armour with oxblood-red trim and a black horned helm, heater shield, oversized sword on a black warhorse charges in, the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword draws his sword to defend the wedding party, guests fleeing, banquet tables overturned.",
+    "size": "1536x1024",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1536,
+        "height": 1024,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Mission illustration"
+  }
+]

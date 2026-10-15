@@ -2,3 +2,4 @@
 .env.temp
 .env*.local
 node_modules/
+app/e2e/.test-user.local.json

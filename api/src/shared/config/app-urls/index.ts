@@ -1,9 +1,7 @@
+// Client links used in emails (contracts §2.7). `appUrl` comes from the APP_URL env var.
 export const AppUrls = {
-    billing: `${process.env.APP_URL}/dashboard/billing/account`,
-    resetPassword: (token: string) =>
-        `${process.env.APP_URL}/auth/reset-password?token=${encodeURIComponent(token)}`,
-} as const;
-
-export const ApiUrls = {
-    api_url: process.env.API_URL,
+  verifyEmail: (appUrl: string, token: string) =>
+    `${appUrl}/verify-email?token=${encodeURIComponent(token)}`,
+  resetPassword: (appUrl: string, token: string) =>
+    `${appUrl}/reset-password?token=${encodeURIComponent(token)}`,
 } as const;

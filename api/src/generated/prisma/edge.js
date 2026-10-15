@@ -95,37 +95,121 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  phone: 'phone',
+  username: 'username',
+  username_normalized: 'username_normalized',
   password: 'password',
   role: 'role',
+  email_verified_at: 'email_verified_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+exports.Prisma.ProfileScalarFieldEnum = {
+  user_id: 'user_id',
+  level: 'level',
+  xp: 'xp',
+  total_points: 'total_points',
+  title: 'title',
+  current_mission_id: 'current_mission_id',
+  highest_unlocked_mission_id: 'highest_unlocked_mission_id',
+  save_version: 'save_version',
+  emperor_knight_unlocked_at: 'emperor_knight_unlocked_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.SettingsScalarFieldEnum = {
+  user_id: 'user_id',
+  master_volume: 'master_volume',
+  music_volume: 'music_volume',
+  sfx_volume: 'sfx_volume',
+  reduced_motion: 'reduced_motion',
+  screen_shake: 'screen_shake',
+  show_fps: 'show_fps',
+  difficulty: 'difficulty',
+  key_bindings: 'key_bindings',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.MissionProgressScalarFieldEnum = {
   id: 'id',
+  user_id: 'user_id',
+  mission_id: 'mission_id',
+  status: 'status',
+  best_score: 'best_score',
+  best_time_ms: 'best_time_ms',
+  best_rank: 'best_rank',
+  completions: 'completions',
+  first_completed_at: 'first_completed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ScoreEntryScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  mission_id: 'mission_id',
+  run_id: 'run_id',
+  score: 'score',
+  duration_ms: 'duration_ms',
+  rank: 'rank',
+  difficulty: 'difficulty',
+  created_at: 'created_at'
+};
+
+exports.Prisma.UnlockedCharacterScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  character_id: 'character_id',
+  source: 'source',
+  unlocked_at: 'unlocked_at'
+};
+
+exports.Prisma.GameRunScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  mission_id: 'mission_id',
+  status: 'status',
+  started_at: 'started_at',
+  completed_at: 'completed_at'
+};
+
+exports.Prisma.RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
   token_hash: 'token_hash',
-  user_uuid: 'user_uuid',
+  family_id: 'family_id',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  replaced_by: 'replaced_by',
+  created_at: 'created_at'
+};
+
+exports.Prisma.EmailVerificationTokenScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
   expires_at: 'expires_at',
   used_at: 'used_at',
   created_at: 'created_at'
 };
 
-exports.Prisma.DocumentScalarFieldEnum = {
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   id: 'id',
-  user_uuid: 'user_uuid',
-  filename: 'filename',
-  mimetype: 'mimetype',
-  size: 'size',
-  url: 'url',
-  path: 'path',
-  type: 'type',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  used_at: 'used_at',
   created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -137,6 +221,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
 exports.AuthRole = exports.$Enums.AuthRole = {
   USER: 'USER',
   ADMIN: 'ADMIN',
@@ -144,21 +234,45 @@ exports.AuthRole = exports.$Enums.AuthRole = {
   SUPPORT: 'SUPPORT'
 };
 
-exports.DocumentType = exports.$Enums.DocumentType = {
-  LOGO: 'LOGO',
-  BANNER: 'BANNER',
-  IMAGE: 'IMAGE',
-  VIDEO: 'VIDEO',
-  AUDIO: 'AUDIO',
-  PDF: 'PDF',
-  DOCUMENT: 'DOCUMENT',
-  OTHER: 'OTHER'
+exports.MissionStatus = exports.$Enums.MissionStatus = {
+  locked: 'locked',
+  unlocked: 'unlocked',
+  in_progress: 'in_progress',
+  completed: 'completed'
+};
+
+exports.Difficulty = exports.$Enums.Difficulty = {
+  squire: 'squire',
+  knight: 'knight',
+  champion: 'champion'
+};
+
+exports.MissionRank = exports.$Enums.MissionRank = {
+  S: 'S',
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  D: 'D'
+};
+
+exports.GameRunStatus = exports.$Enums.GameRunStatus = {
+  started: 'started',
+  completed: 'completed',
+  defeated: 'defeated',
+  rejected: 'rejected'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
-  PasswordResetToken: 'PasswordResetToken',
-  Document: 'Document'
+  Profile: 'Profile',
+  Settings: 'Settings',
+  MissionProgress: 'MissionProgress',
+  ScoreEntry: 'ScoreEntry',
+  UnlockedCharacter: 'UnlockedCharacter',
+  GameRun: 'GameRun',
+  RefreshToken: 'RefreshToken',
+  EmailVerificationToken: 'EmailVerificationToken',
+  PasswordResetToken: 'PasswordResetToken'
 };
 /**
  * Create the Client
@@ -168,10 +282,10 @@ const config = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum AuthRole {\n  USER\n  ADMIN\n  SUPER_ADMIN\n  SUPPORT\n}\n\nenum DocumentType {\n  LOGO\n  BANNER\n  IMAGE\n  VIDEO\n  AUDIO\n  PDF\n  DOCUMENT\n  OTHER\n}\n\nmodel User {\n  id       String  @id @default(uuid())\n  email    String  @unique\n  phone    String? @unique\n  password String\n\n  role       AuthRole\n  created_at DateTime @default(now())\n  updated_at DateTime @updatedAt\n\n  password_reset_tokens PasswordResetToken[]\n\n  @@index([email])\n  @@index([phone])\n  @@index([id])\n  @@map(\"users\")\n}\n\nmodel PasswordResetToken {\n  id         String    @id @default(uuid())\n  token_hash String    @unique\n  user_uuid  String\n  expires_at DateTime\n  used_at    DateTime?\n  created_at DateTime  @default(now())\n\n  user User @relation(fields: [user_uuid], references: [id], onDelete: Cascade)\n\n  @@index([user_uuid])\n  @@index([expires_at])\n  @@map(\"password_reset_tokens\")\n}\n\nmodel Document {\n  id         String       @id @default(uuid())\n  user_uuid  String\n  filename   String\n  mimetype   String\n  size       Int\n  url        String\n  path       String\n  type       DocumentType @default(LOGO)\n  created_at DateTime     @default(now())\n\n  @@index([user_uuid])\n  @@index([id])\n  @@map(\"documents\")\n}\n"
+  "inlineSchema": "// White Knight — Prisma schema.\n// DB columns are snake_case; the API maps them to camelCase JSON.\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum AuthRole {\n  USER\n  ADMIN\n  SUPER_ADMIN\n  SUPPORT\n}\n\nenum MissionStatus {\n  locked\n  unlocked\n  in_progress\n  completed\n}\n\nenum Difficulty {\n  squire\n  knight\n  champion\n}\n\nenum MissionRank {\n  S\n  A\n  B\n  C\n  D\n}\n\nenum GameRunStatus {\n  started\n  completed\n  defeated\n  rejected\n}\n\nmodel User {\n  id                  String    @id @default(uuid())\n  email               String    @unique // stored lowercased\n  username            String // display casing\n  username_normalized String    @unique // lowercased, for case-insensitive uniqueness/login\n  password            String\n  role                AuthRole  @default(USER)\n  email_verified_at   DateTime?\n  created_at          DateTime  @default(now())\n  updated_at          DateTime  @updatedAt\n\n  profile                   Profile?\n  settings                  Settings?\n  mission_progress          MissionProgress[]\n  score_entries             ScoreEntry[]\n  unlocked_characters       UnlockedCharacter[]\n  game_runs                 GameRun[]\n  refresh_tokens            RefreshToken[]\n  email_verification_tokens EmailVerificationToken[]\n  password_reset_tokens     PasswordResetToken[]\n\n  @@map(\"users\")\n}\n\nmodel Profile {\n  user_id                     String    @id\n  level                       Int       @default(1)\n  xp                          Int       @default(0)\n  total_points                Int       @default(0) // sum of best score per mission\n  title                       String    @default(\"Squire\")\n  current_mission_id          String    @default(\"m01\")\n  highest_unlocked_mission_id String    @default(\"m01\")\n  save_version                Int       @default(1)\n  emperor_knight_unlocked_at  DateTime? // P4-08: tracked separately from story progress\n  created_at                  DateTime  @default(now())\n  updated_at                  DateTime  @updatedAt\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([total_points])\n  @@map(\"profiles\")\n}\n\nmodel Settings {\n  user_id        String     @id\n  master_volume  Float      @default(0.8)\n  music_volume   Float      @default(0.6)\n  sfx_volume     Float      @default(0.8)\n  reduced_motion Boolean    @default(false)\n  screen_shake   Boolean    @default(true)\n  show_fps       Boolean    @default(false)\n  difficulty     Difficulty @default(knight)\n  key_bindings   Json\n  updated_at     DateTime   @updatedAt\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@map(\"settings\")\n}\n\nmodel MissionProgress {\n  id                 String        @id @default(uuid())\n  user_id            String\n  mission_id         String\n  status             MissionStatus @default(unlocked)\n  best_score         Int           @default(0)\n  best_time_ms       Int?\n  best_rank          MissionRank?\n  completions        Int           @default(0)\n  first_completed_at DateTime?\n  created_at         DateTime      @default(now())\n  updated_at         DateTime      @updatedAt\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([user_id, mission_id])\n  @@index([mission_id, best_score])\n  @@index([mission_id, best_time_ms])\n  @@map(\"mission_progress\")\n}\n\nmodel ScoreEntry {\n  id          String      @id @default(uuid())\n  user_id     String\n  mission_id  String\n  run_id      String      @unique\n  score       Int\n  duration_ms Int\n  rank        MissionRank\n  difficulty  Difficulty\n  created_at  DateTime    @default(now())\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([created_at])\n  @@index([mission_id, created_at])\n  @@index([user_id, mission_id])\n  @@map(\"score_entries\")\n}\n\nmodel UnlockedCharacter {\n  id           String   @id @default(uuid())\n  user_id      String\n  character_id String\n  source       String // 'registration' | 'mission' | 'score_threshold'\n  unlocked_at  DateTime @default(now())\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([user_id, character_id])\n  @@map(\"unlocked_characters\")\n}\n\nmodel GameRun {\n  id           String        @id @default(uuid())\n  user_id      String\n  mission_id   String\n  status       GameRunStatus @default(started)\n  started_at   DateTime      @default(now())\n  completed_at DateTime?\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([user_id, status])\n  @@map(\"game_runs\")\n}\n\nmodel RefreshToken {\n  id          String    @id @default(uuid())\n  user_id     String\n  token_hash  String    @unique\n  family_id   String\n  expires_at  DateTime\n  revoked_at  DateTime?\n  replaced_by String?\n  created_at  DateTime  @default(now())\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([family_id])\n  @@index([user_id])\n  @@map(\"refresh_tokens\")\n}\n\nmodel EmailVerificationToken {\n  id         String    @id @default(uuid())\n  user_id    String\n  token_hash String    @unique\n  expires_at DateTime\n  used_at    DateTime?\n  created_at DateTime  @default(now())\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([user_id])\n  @@map(\"email_verification_tokens\")\n}\n\nmodel PasswordResetToken {\n  id         String    @id @default(uuid())\n  user_id    String\n  token_hash String    @unique\n  expires_at DateTime\n  used_at    DateTime?\n  created_at DateTime  @default(now())\n\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([user_id])\n  @@index([expires_at])\n  @@map(\"password_reset_tokens\")\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"AuthRole\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"password_reset_tokens\",\"kind\":\"object\",\"type\":\"PasswordResetToken\",\"relationName\":\"PasswordResetTokenToUser\"}],\"dbName\":\"users\"},\"PasswordResetToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token_hash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"used_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PasswordResetTokenToUser\"}],\"dbName\":\"password_reset_tokens\"},\"Document\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"filename\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mimetype\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"size\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"path\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"DocumentType\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"documents\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username_normalized\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"AuthRole\"},{\"name\":\"email_verified_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"profile\",\"kind\":\"object\",\"type\":\"Profile\",\"relationName\":\"ProfileToUser\"},{\"name\":\"settings\",\"kind\":\"object\",\"type\":\"Settings\",\"relationName\":\"SettingsToUser\"},{\"name\":\"mission_progress\",\"kind\":\"object\",\"type\":\"MissionProgress\",\"relationName\":\"MissionProgressToUser\"},{\"name\":\"score_entries\",\"kind\":\"object\",\"type\":\"ScoreEntry\",\"relationName\":\"ScoreEntryToUser\"},{\"name\":\"unlocked_characters\",\"kind\":\"object\",\"type\":\"UnlockedCharacter\",\"relationName\":\"UnlockedCharacterToUser\"},{\"name\":\"game_runs\",\"kind\":\"object\",\"type\":\"GameRun\",\"relationName\":\"GameRunToUser\"},{\"name\":\"refresh_tokens\",\"kind\":\"object\",\"type\":\"RefreshToken\",\"relationName\":\"RefreshTokenToUser\"},{\"name\":\"email_verification_tokens\",\"kind\":\"object\",\"type\":\"EmailVerificationToken\",\"relationName\":\"EmailVerificationTokenToUser\"},{\"name\":\"password_reset_tokens\",\"kind\":\"object\",\"type\":\"PasswordResetToken\",\"relationName\":\"PasswordResetTokenToUser\"}],\"dbName\":\"users\"},\"Profile\":{\"fields\":[{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"level\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"xp\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"total_points\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"current_mission_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"highest_unlocked_mission_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"save_version\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"emperor_knight_unlocked_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProfileToUser\"}],\"dbName\":\"profiles\"},\"Settings\":{\"fields\":[{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"master_volume\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"music_volume\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"sfx_volume\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"reduced_motion\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"screen_shake\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"show_fps\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"difficulty\",\"kind\":\"enum\",\"type\":\"Difficulty\"},{\"name\":\"key_bindings\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SettingsToUser\"}],\"dbName\":\"settings\"},\"MissionProgress\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mission_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"MissionStatus\"},{\"name\":\"best_score\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"best_time_ms\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"best_rank\",\"kind\":\"enum\",\"type\":\"MissionRank\"},{\"name\":\"completions\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"first_completed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MissionProgressToUser\"}],\"dbName\":\"mission_progress\"},\"ScoreEntry\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mission_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"run_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"duration_ms\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rank\",\"kind\":\"enum\",\"type\":\"MissionRank\"},{\"name\":\"difficulty\",\"kind\":\"enum\",\"type\":\"Difficulty\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ScoreEntryToUser\"}],\"dbName\":\"score_entries\"},\"UnlockedCharacter\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"character_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"source\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"unlocked_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UnlockedCharacterToUser\"}],\"dbName\":\"unlocked_characters\"},\"GameRun\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"mission_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"GameRunStatus\"},{\"name\":\"started_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"completed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"GameRunToUser\"}],\"dbName\":\"game_runs\"},\"RefreshToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token_hash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"family_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"revoked_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"replaced_by\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RefreshTokenToUser\"}],\"dbName\":\"refresh_tokens\"},\"EmailVerificationToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token_hash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"used_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EmailVerificationTokenToUser\"}],\"dbName\":\"email_verification_tokens\"},\"PasswordResetToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token_hash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"used_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PasswordResetTokenToUser\"}],\"dbName\":\"password_reset_tokens\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
   getRuntime: async () => require('./query_compiler_bg.js'),

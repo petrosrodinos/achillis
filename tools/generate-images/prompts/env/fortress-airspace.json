@@ -1,0 +1,162 @@
+[
+  {
+    "id": "env/fortress-airspace/sky",
+    "outPath": "env/fortress-airspace/sky.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax SKY layer only, wide 2:1 panorama. Hazy smoky sunset, burnt orange, dark iron grey and dusty red palette. a hazy smoky sunset sky, burnt orange near the bottom fading to dusty grey-purple, drifting smoke. Only sky fills the image: no ground, no hills, no mountains, no trees, no buildings, no horizon objects. Evenly distributed composition with nothing important at the left or right edges so it can tile horizontally.",
+    "size": "2048x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment fortress-airspace (M9 (approach to the fortress))"
+  },
+  {
+    "id": "env/fortress-airspace/far",
+    "outPath": "env/fortress-airspace/far.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax FAR layer on a fully transparent background. Hazy smoky sunset, burnt orange, dark iron grey and dusty red palette. The layer contains only: a distant dark enemy fortress on a high crag with many towers, thin dark grey smoke trails drifting from its towers, seen from the air, drawn as one continuous band running across the entire width from the left edge to the right edge, occupying the bottom 40% of the image and extending solidly down to the bottom edge with no gap. light, low contrast and desaturated by atmospheric perspective, but with a crisp clean silhouette top edge directly against the transparency (no mist, haze or glow band above the silhouette). Everything above the band is completely empty and transparent: no sky, no clouds, no sun, no background colour.",
+    "size": "1536x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 12
+      },
+      {
+        "op": "anchorBottom",
+        "coverage": 0.6,
+        "bleed": 0.06
+      },
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "bottom"
+      },
+      {
+        "op": "placeTop",
+        "top": 0.44,
+        "coverage": 0.08,
+        "allowUp": true
+      },
+      {
+        "op": "topFade",
+        "clear": 0.1,
+        "fade": 0.06
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment fortress-airspace (M9 (approach to the fortress))"
+  },
+  {
+    "id": "env/fortress-airspace/mid",
+    "outPath": "env/fortress-airspace/mid.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax MID layer on a fully transparent background. Hazy smoky sunset, burnt orange, dark iron grey and dusty red palette. The layer contains only: a band of smoky orange-tinted clouds and dark crags with watchtowers poking through, drawn as one continuous band running across the entire width from the left edge to the right edge, occupying the bottom 45% of the image and extending solidly down to the bottom edge with no gap. medium values and medium contrast, with a clean silhouette top edge directly against the transparency. Everything above the band is completely empty and transparent: no sky, no clouds, no sun, no background colour.",
+    "size": "1536x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 12
+      },
+      {
+        "op": "anchorBottom",
+        "coverage": 0.6,
+        "bleed": 0.06
+      },
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "bottom"
+      },
+      {
+        "op": "placeTop",
+        "top": 0.57,
+        "coverage": 0.08,
+        "allowUp": true
+      },
+      {
+        "op": "topFade",
+        "clear": 0.23,
+        "fade": 0.06
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment fortress-airspace (M9 (approach to the fortress))"
+  },
+  {
+    "id": "env/fortress-airspace/fore",
+    "outPath": "env/fortress-airspace/fore.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax FORE layer on a fully transparent background. Hazy smoky sunset, burnt orange, dark iron grey and dusty red palette. The layer contains only: a foreground band of dark smoke and ragged cloud wisps, drawn as one continuous band running across the entire width from the left edge to the right edge, occupying only the bottom 22% of the image and extending solidly down to the bottom edge with no gap. darker values, richer colour, crisp edges. Everything above the band is completely empty and transparent: no sky, no clouds, no sun, no background colour.",
+    "size": "1536x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 12
+      },
+      {
+        "op": "anchorBottom",
+        "coverage": 0.6,
+        "bleed": 0.06
+      },
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "bottom"
+      },
+      {
+        "op": "placeTop",
+        "top": 0.72,
+        "coverage": 0.08,
+        "allowUp": false
+      },
+      {
+        "op": "topFade",
+        "clear": 0.38,
+        "fade": 0.06
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment fortress-airspace (M9 (approach to the fortress))"
+  }
+]

@@ -1,0 +1,177 @@
+[
+  {
+    "id": "ground/dirt",
+    "outPath": "ground/dirt.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable top-down ground texture: packed brown earth dirt road surface with small pebbles, faint cart tracks and subtle cracks. Fills the entire square edge to edge with an even, repeating pattern.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Ground texture"
+  },
+  {
+    "id": "ground/grass",
+    "outPath": "ground/grass.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable top-down ground texture: short trimmed green-olive grass turf with a few tiny clover leaves and small earth patches. Fills the entire square edge to edge with an even, repeating pattern.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Ground texture"
+  },
+  {
+    "id": "ground/sand",
+    "outPath": "ground/sand.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable top-down ground texture: fine warm beige sand with soft wind ripples and a few tiny shells. Fills the entire square edge to edge with an even, repeating pattern.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Ground texture"
+  },
+  {
+    "id": "ground/stone",
+    "outPath": "ground/stone.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable top-down ground texture: grey cobblestone paving of rounded irregular stones with dark mortar gaps. Fills the entire square edge to edge with an even, repeating pattern.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Ground texture"
+  },
+  {
+    "id": "ground/snow",
+    "outPath": "ground/snow.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable top-down ground texture: packed white snow surface with soft blue shadows, footprints-free, faint ice crystals. Fills the entire square edge to edge with an even, repeating pattern.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Ground texture"
+  },
+  {
+    "id": "ground/wood",
+    "outPath": "ground/wood.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable top-down ground texture: weathered warm brown wooden floor planks running horizontally with nails and grain. Fills the entire square edge to edge with an even, repeating pattern.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Ground texture"
+  },
+  {
+    "id": "ground/marble",
+    "outPath": "ground/marble.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable top-down ground texture: polished cream and grey veined marble floor tiles in a simple square grid. Fills the entire square edge to edge with an even, repeating pattern.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Ground texture"
+  }
+]

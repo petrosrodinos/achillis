@@ -1,0 +1,422 @@
+[
+  {
+    "id": "icons/lives",
+    "outPath": "icons/lives.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a red heart shape made of polished garnet with a small gold rim.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/kills",
+    "outPath": "icons/kills.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: two crossed swords with gold hilts.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/enemies",
+    "outPath": "icons/enemies.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a dark iron footsoldier helmet with a nasal guard.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/level",
+    "outPath": "icons/level.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a chevron rank insignia of three stacked gold upward chevrons.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/points",
+    "outPath": "icons/points.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a small stack of three gold coins.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/trophy",
+    "outPath": "icons/trophy.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a golden goblet trophy cup with two handles.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/lock",
+    "outPath": "icons/lock.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a heavy iron padlock with a keyhole.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/sword",
+    "outPath": "icons/sword.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a single upright longsword with a gold crossguard.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/shield",
+    "outPath": "icons/shield.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a kite shield in pale blue with a gold cross.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/horse",
+    "outPath": "icons/horse.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a white horse head in profile facing right with a pale blue bridle.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/scroll",
+    "outPath": "icons/scroll.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a rolled parchment scroll tied with a red ribbon.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/crown",
+    "outPath": "icons/crown.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a gold royal crown with red and blue gems.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/skull",
+    "outPath": "icons/skull.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a pale bone skull.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  },
+  {
+    "id": "icons/clock",
+    "outPath": "icons/clock.webp",
+    "style": "icon",
+    "prompt": "Game UI icon: a bronze hourglass with golden sand.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 16
+      },
+      {
+        "op": "trim"
+      },
+      {
+        "op": "contain",
+        "width": 256,
+        "height": 256,
+        "padding": 12
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "HUD/UI icon"
+  }
+]

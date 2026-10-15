@@ -1,0 +1,107 @@
+[
+  {
+    "id": "env/_fog/light",
+    "outPath": "env/_fog/light.webp",
+    "style": "raw",
+    "prompt": "Pure white soft pale wispy horizontal mist bands, gentle and thin, with gaps painted on a solid pure black background, soft painterly edges, the mist sits mostly in the middle and lower part of the image and fades out completely towards the top, evenly spread across the full width with nothing at the left or right edges standing out, grayscale only, no objects, no landscape, no text.",
+    "size": "2048x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "lumaToAlpha",
+        "color": "#efe6d6",
+        "gain": 1
+      },
+      {
+        "op": "topFade",
+        "clear": 0.08,
+        "fade": 0.2
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Shared fog layer (luma-keyed to alpha)"
+  },
+  {
+    "id": "env/_fog/dark",
+    "outPath": "env/_fog/dark.webp",
+    "style": "raw",
+    "prompt": "Pure white thick heavy rolling horizontal fog bands, dense near the bottom painted on a solid pure black background, soft painterly edges, the mist sits mostly in the middle and lower part of the image and fades out completely towards the top, evenly spread across the full width with nothing at the left or right edges standing out, grayscale only, no objects, no landscape, no text.",
+    "size": "2048x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "lumaToAlpha",
+        "color": "#4a4458",
+        "gain": 1.25
+      },
+      {
+        "op": "topFade",
+        "clear": 0.08,
+        "fade": 0.2
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Shared fog layer (luma-keyed to alpha)"
+  },
+  {
+    "id": "env/_fog/storm",
+    "outPath": "env/_fog/storm.webp",
+    "style": "raw",
+    "prompt": "Pure white torn windswept horizontal storm mist streaks and rain-laden cloud wisps painted on a solid pure black background, soft painterly edges, the mist sits mostly in the middle and lower part of the image and fades out completely towards the top, evenly spread across the full width with nothing at the left or right edges standing out, grayscale only, no objects, no landscape, no text.",
+    "size": "2048x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "lumaToAlpha",
+        "color": "#8a93a3",
+        "gain": 1.15
+      },
+      {
+        "op": "topFade",
+        "clear": 0.08,
+        "fade": 0.2
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Shared fog layer (luma-keyed to alpha)"
+  }
+]

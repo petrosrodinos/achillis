@@ -1,17 +1,9 @@
-import { Module } from '@nestjs/common';
-import { CacheModule } from '@nestjs/cache-manager';
+import { Global, Module } from '@nestjs/common';
 import { CacheService } from './cache.service';
-import * as memoryStore from 'cache-manager-memory-store';
 
+@Global()
 @Module({
-    imports: [
-        CacheModule.register({
-            store: memoryStore,
-            max: 500,
-            ttl: 1000 * 60 * 2,
-        }),
-    ],
-    providers: [CacheService],
-    exports: [CacheService],
+  providers: [CacheService],
+  exports: [CacheService],
 })
-export class AppCacheModule { }
+export class AppCacheModule {}

@@ -1,0 +1,32 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Confirm your email</title>
+    <style>
+      body { font-family: Georgia, 'Times New Roman', serif; background-color: #2b2622; margin: 0; padding: 20px; color: #2b2118; }
+      .email { background: #efe4cc; border: 3px solid #7a5c32; border-radius: 6px; max-width: 600px; margin: auto; overflow: hidden; }
+      .header { background: #3a3129; color: #efe4cc; padding: 22px 32px; border-bottom: 3px solid #7a5c32; }
+      .header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; }
+      .body { padding: 28px 32px; }
+      .body p { font-size: 15px; line-height: 1.6; margin: 0 0 16px; }
+      .cta { margin: 26px 0; text-align: center; }
+      .cta a { background: #3f5a3a; color: #f6ecd6; padding: 12px 26px; border: 2px solid #7a5c32; border-radius: 4px; font-weight: bold; text-decoration: none; display: inline-block; }
+      .footer { padding: 18px 32px; font-size: 12px; color: #5c4a36; border-top: 1px solid #c9b48a; text-align: center; }
+      .link-fallback { font-size: 12px; color: #5c4a36; word-break: break-all; }
+    </style>
+  </head>
+  <body>
+    <div class='email'>
+      <div class='header'><h1>White Knight</h1></div>
+      <div class='body'>
+        <p>Welcome to the order, {{username}}!</p>
+        <p>Please confirm your email address so we can help you recover your account if you ever lose access.</p>
+        <div class='cta'><a href='{{verifyUrl}}'>Confirm email</a></div>
+        <p>This link expires in 24 hours.</p>
+        <p class='link-fallback'>If the button does not work, copy this link into your browser:<br />{{verifyUrl}}</p>
+      </div>
+      <div class='footer'>You received this email because an account was created with this address.</div>
+    </div>
+  </body>
+</html>

@@ -1,20 +1,34 @@
-import { Logger, Module } from '@nestjs/common';
-import { EmailAuthService } from './services/email.service';
-import { EmailAuthController } from './controllers/email.controller';
-import { PasswordService } from './services/password.service';
-import { PasswordController } from './controllers/password.controller';
+import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { PrismaModule } from '@/core/databases/prisma/prisma.module';
-import { CreateJwtServiceModule } from '@/shared/utils/jwt/jwt.module';
-import { JwtStrategy } from './strategies/jwt.strategy';
 import { ResendModule } from '@/integrations/notifications/resend/resend.module';
+import { ProfileModule } from '@/modules/profile/profile.module';
+import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
+import { AuthTokensService } from './services/auth-tokens.service';
+import { AuthMailService } from './services/auth-mail.service';
+import { EmailVerificationService } from './services/email-verification.service';
+import { PasswordService } from './services/password.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
     PrismaModule,
-    CreateJwtServiceModule,
+    PassportModule,
+    JwtModule.register({}),
     ResendModule,
+    ProfileModule,
   ],
-  providers: [EmailAuthService, PasswordService, JwtStrategy, Logger],
-  controllers: [EmailAuthController, PasswordController],
+  controllers: [AuthController],
+  providers: [
+    AuthService,
+    AuthTokensService,
+    AuthMailService,
+    EmailVerificationService,
+    PasswordService,
+    JwtStrategy,
+  ],
+  exports: [AuthTokensService],
 })
-export class AuthModule { }
+export class AuthModule {}

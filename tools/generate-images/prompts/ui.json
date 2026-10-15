@@ -1,0 +1,73 @@
+[
+  {
+    "id": "ui/title",
+    "outPath": "ui/title.webp",
+    "style": "keyart",
+    "prompt": "Title screen key art, wide 16:9: the White Knight, a heroic knight in gleaming white-silver plate armour with a closed great helm topped by a white plume, a pale blue tabard with a gold cross, a large kite shield with a gold cross on pale blue, an oversized longsword, mounted on a powerful white warhorse with a pale blue and gold caparison, rearing on a hill at golden sunset, sword raised, cape flowing, a vast medieval landscape with distant castles and mountains behind. The knight is placed slightly right of centre; the left third of the image is calmer sky and landscape with space for a title.",
+    "size": "1920x1088",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1920,
+        "height": 1080,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Title key art"
+  },
+  {
+    "id": "ui/menu",
+    "outPath": "ui/menu.webp",
+    "style": "background",
+    "prompt": "Calm main-menu backdrop, wide 16:9: a quiet medieval castle courtyard at dusk seen from a balcony, a knight's white-plumed great helm, a kite shield with a gold cross on pale blue and a longsword resting on a wooden table in the foreground left, candle light, distant hills and castle towers through stone arches, soft and low contrast so menu text can sit on top.",
+    "size": "1920x1088",
+    "quality": "high",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "fit",
+        "width": 1920,
+        "height": 1080,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Main menu backdrop"
+  },
+  {
+    "id": "ui/parchment",
+    "outPath": "ui/parchment.webp",
+    "style": "texture",
+    "prompt": "Seamless tileable aged parchment paper texture, warm cream and light tan, subtle fibres, faint mottled stains, very even and light so dark text stays readable, no edges, no burns, no writing.",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "xy",
+        "width": 1024,
+        "height": 1024,
+        "blend": 0.2,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Parchment UI texture"
+  }
+]

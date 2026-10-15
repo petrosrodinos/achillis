@@ -1,106 +1,83 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { createHash, randomBytes } from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
-import { ResendMailService } from '@/integrations/notifications/resend/services/mail.service';
-import { EmailConfig } from '@/shared/constants/email';
-import { AppUrls } from '@/shared/config/app-urls';
-import { ForgotPasswordDto } from '../dto/forgot-password.dto';
-import { ResetPasswordDto } from '../dto/reset-password.dto';
+import { ErrorMessages } from '@/shared/config/error-codes';
+import { ForgotPasswordDto, ResetPasswordDto } from '../dto/token.dto';
+import { OkResponse } from '../interfaces/auth.interface';
+import { generateOpaqueToken, hashToken } from '../utils/token.utils';
+import { AuthMailService } from './auth-mail.service';
+import { AuthTokensService } from './auth-tokens.service';
+import { BCRYPT_ROUNDS } from './auth.service';
 
-const RESET_TOKEN_EXPIRY_MS = 60 * 60 * 1000;
+const RESET_TOKEN_TTL_MS = 60 * 60 * 1000;
 
 @Injectable()
 export class PasswordService {
-    constructor(
-        private readonly prisma: PrismaService,
-        private readonly mailService: ResendMailService,
-    ) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly authMail: AuthMailService,
+    private readonly tokens: AuthTokensService,
+  ) {}
 
-    async forgotPassword(dto: ForgotPasswordDto) {
-        const user = await this.prisma.user.findUnique({
-            where: { email: dto.email },
-        });
+  /** Always resolves with `{ ok: true }` — never reveals whether the account exists. */
+  async forgotPassword(dto: ForgotPasswordDto): Promise<OkResponse> {
+    const user = await this.prisma.user.findUnique({
+      where: { email: dto.email },
+      select: { id: true, email: true, username: true },
+    });
 
-        if (user && user.password) {
-            const token = randomBytes(32).toString('hex');
-            const tokenHash = this.hashToken(token);
-            const expiresAt = new Date(Date.now() + RESET_TOKEN_EXPIRY_MS);
-
-            await this.prisma.passwordResetToken.updateMany({
-                where: {
-                    user_uuid: user.id,
-                    used_at: null,
-                },
-                data: {
-                    used_at: new Date(),
-                },
-            });
-
-            await this.prisma.passwordResetToken.create({
-                data: {
-                    token_hash: tokenHash,
-                    user_uuid: user.id,
-                    expires_at: expiresAt,
-                },
-            });
-
-            setImmediate(async () => {
-                try {
-                    await this.mailService.sendEmail({
-                        to: user.email,
-                        from: EmailConfig.email_addresses.alert,
-                        subject: EmailConfig.templates.password_reset.subject,
-                        template_id: EmailConfig.templates.password_reset.template_id,
-                        dynamic_template_data: {
-                            resetUrl: AppUrls.resetPassword(token),
-                        },
-                    });
-                } catch { }
-            });
-        }
-
-        return {
-            message: 'If an account with that email exists, a password reset link has been sent.',
-        };
+    if (user) {
+      const token = generateOpaqueToken();
+      await this.prisma.$transaction([
+        this.prisma.passwordResetToken.updateMany({
+          where: { user_id: user.id, used_at: null },
+          data: { used_at: new Date() },
+        }),
+        this.prisma.passwordResetToken.create({
+          data: {
+            user_id: user.id,
+            token_hash: hashToken(token),
+            expires_at: new Date(Date.now() + RESET_TOKEN_TTL_MS),
+          },
+        }),
+      ]);
+      this.authMail.sendPasswordResetEmail(user.email, user.username, token);
     }
 
-    async resetPassword(dto: ResetPasswordDto) {
-        const tokenHash = this.hashToken(dto.token);
+    return { ok: true };
+  }
 
-        const resetToken = await this.prisma.passwordResetToken.findUnique({
-            where: { token_hash: tokenHash },
-        });
-
-        if (!resetToken || resetToken.used_at || resetToken.expires_at < new Date()) {
-            throw new BadRequestException('Invalid or expired reset token');
-        }
-
-        const hashedPassword = await bcrypt.hash(dto.password, 10);
-
-        await this.prisma.$transaction([
-            this.prisma.user.update({
-                where: { id: resetToken.user_uuid },
-                data: { password: hashedPassword },
-            }),
-            this.prisma.passwordResetToken.update({
-                where: { id: resetToken.id },
-                data: { used_at: new Date() },
-            }),
-            this.prisma.passwordResetToken.updateMany({
-                where: {
-                    user_uuid: resetToken.user_uuid,
-                    used_at: null,
-                    id: { not: resetToken.id },
-                },
-                data: { used_at: new Date() },
-            }),
-        ]);
-
-        return { message: 'Password has been reset successfully' };
+  /** Sets the new password, consumes the token and revokes every refresh token of the user. */
+  async resetPassword(dto: ResetPasswordDto): Promise<OkResponse> {
+    const record = await this.prisma.passwordResetToken.findUnique({
+      where: { token_hash: hashToken(dto.token) },
+    });
+    if (!record || record.used_at || record.expires_at <= new Date()) {
+      throw new BadRequestException(ErrorMessages.Auth.INVALID_RESET_TOKEN);
     }
 
-    private hashToken(token: string): string {
-        return createHash('sha256').update(token).digest('hex');
-    }
+    const passwordHash = await bcrypt.hash(dto.password, BCRYPT_ROUNDS);
+    const now = new Date();
+    await this.prisma.$transaction(async (tx) => {
+      // Claim the token atomically so it can only ever be used once.
+      const claimed = await tx.passwordResetToken.updateMany({
+        where: { id: record.id, used_at: null },
+        data: { used_at: now },
+      });
+      if (claimed.count === 0) {
+        throw new BadRequestException(ErrorMessages.Auth.INVALID_RESET_TOKEN);
+      }
+      await tx.user.update({
+        where: { id: record.user_id },
+        data: { password: passwordHash },
+      });
+      await tx.passwordResetToken.updateMany({
+        where: { user_id: record.user_id, used_at: null },
+        data: { used_at: now },
+      });
+    });
+    await this.tokens.revokeAllForUser(record.user_id);
+
+    return { ok: true };
+  }
 }

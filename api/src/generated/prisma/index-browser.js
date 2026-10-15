@@ -123,37 +123,121 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  phone: 'phone',
+  username: 'username',
+  username_normalized: 'username_normalized',
   password: 'password',
   role: 'role',
+  email_verified_at: 'email_verified_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+exports.Prisma.ProfileScalarFieldEnum = {
+  user_id: 'user_id',
+  level: 'level',
+  xp: 'xp',
+  total_points: 'total_points',
+  title: 'title',
+  current_mission_id: 'current_mission_id',
+  highest_unlocked_mission_id: 'highest_unlocked_mission_id',
+  save_version: 'save_version',
+  emperor_knight_unlocked_at: 'emperor_knight_unlocked_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.SettingsScalarFieldEnum = {
+  user_id: 'user_id',
+  master_volume: 'master_volume',
+  music_volume: 'music_volume',
+  sfx_volume: 'sfx_volume',
+  reduced_motion: 'reduced_motion',
+  screen_shake: 'screen_shake',
+  show_fps: 'show_fps',
+  difficulty: 'difficulty',
+  key_bindings: 'key_bindings',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.MissionProgressScalarFieldEnum = {
   id: 'id',
+  user_id: 'user_id',
+  mission_id: 'mission_id',
+  status: 'status',
+  best_score: 'best_score',
+  best_time_ms: 'best_time_ms',
+  best_rank: 'best_rank',
+  completions: 'completions',
+  first_completed_at: 'first_completed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ScoreEntryScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  mission_id: 'mission_id',
+  run_id: 'run_id',
+  score: 'score',
+  duration_ms: 'duration_ms',
+  rank: 'rank',
+  difficulty: 'difficulty',
+  created_at: 'created_at'
+};
+
+exports.Prisma.UnlockedCharacterScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  character_id: 'character_id',
+  source: 'source',
+  unlocked_at: 'unlocked_at'
+};
+
+exports.Prisma.GameRunScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  mission_id: 'mission_id',
+  status: 'status',
+  started_at: 'started_at',
+  completed_at: 'completed_at'
+};
+
+exports.Prisma.RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
   token_hash: 'token_hash',
-  user_uuid: 'user_uuid',
+  family_id: 'family_id',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  replaced_by: 'replaced_by',
+  created_at: 'created_at'
+};
+
+exports.Prisma.EmailVerificationTokenScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
   expires_at: 'expires_at',
   used_at: 'used_at',
   created_at: 'created_at'
 };
 
-exports.Prisma.DocumentScalarFieldEnum = {
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   id: 'id',
-  user_uuid: 'user_uuid',
-  filename: 'filename',
-  mimetype: 'mimetype',
-  size: 'size',
-  url: 'url',
-  path: 'path',
-  type: 'type',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  used_at: 'used_at',
   created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -165,6 +249,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
 exports.AuthRole = exports.$Enums.AuthRole = {
   USER: 'USER',
   ADMIN: 'ADMIN',
@@ -172,21 +262,45 @@ exports.AuthRole = exports.$Enums.AuthRole = {
   SUPPORT: 'SUPPORT'
 };
 
-exports.DocumentType = exports.$Enums.DocumentType = {
-  LOGO: 'LOGO',
-  BANNER: 'BANNER',
-  IMAGE: 'IMAGE',
-  VIDEO: 'VIDEO',
-  AUDIO: 'AUDIO',
-  PDF: 'PDF',
-  DOCUMENT: 'DOCUMENT',
-  OTHER: 'OTHER'
+exports.Difficulty = exports.$Enums.Difficulty = {
+  squire: 'squire',
+  knight: 'knight',
+  champion: 'champion'
+};
+
+exports.MissionStatus = exports.$Enums.MissionStatus = {
+  locked: 'locked',
+  unlocked: 'unlocked',
+  in_progress: 'in_progress',
+  completed: 'completed'
+};
+
+exports.MissionRank = exports.$Enums.MissionRank = {
+  S: 'S',
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  D: 'D'
+};
+
+exports.GameRunStatus = exports.$Enums.GameRunStatus = {
+  started: 'started',
+  completed: 'completed',
+  defeated: 'defeated',
+  rejected: 'rejected'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
-  PasswordResetToken: 'PasswordResetToken',
-  Document: 'Document'
+  Profile: 'Profile',
+  Settings: 'Settings',
+  MissionProgress: 'MissionProgress',
+  ScoreEntry: 'ScoreEntry',
+  UnlockedCharacter: 'UnlockedCharacter',
+  GameRun: 'GameRun',
+  RefreshToken: 'RefreshToken',
+  EmailVerificationToken: 'EmailVerificationToken',
+  PasswordResetToken: 'PasswordResetToken'
 };
 
 /**

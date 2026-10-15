@@ -1,0 +1,162 @@
+[
+  {
+    "id": "env/dark-hallway/sky",
+    "outPath": "env/dark-hallway/sky.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax BACKGROUND WALL layer for an interior scene, wide panorama. Dim torchlit interior, cold blue-grey stone with warm amber torch glow palette. the dark back wall of a long castle corridor: rough grey stone blocks, faint mould, unlit shadows, fading into darkness at the top, a few hanging cobwebs. Fills the whole image edge to edge. Evenly distributed composition with nothing important at the left or right edges so it can tile horizontally.",
+    "size": "2048x1024",
+    "quality": "medium",
+    "background": "opaque",
+    "postprocess": [
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "centre"
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment dark-hallway (M5)"
+  },
+  {
+    "id": "env/dark-hallway/far",
+    "outPath": "env/dark-hallway/far.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax FAR layer on a fully transparent background. Dim torchlit interior, cold blue-grey stone with warm amber torch glow palette. The layer contains only: a distant row of dark stone archways receding into the corridor, faint blue darkness inside them, drawn as one continuous band running across the entire width from the left edge to the right edge, occupying the bottom 40% of the image and extending solidly down to the bottom edge with no gap. light, low contrast and desaturated by atmospheric perspective, but with a crisp clean silhouette top edge directly against the transparency (no mist, haze or glow band above the silhouette). Everything above the band is completely empty and transparent: no sky, no clouds, no sun, no background colour.",
+    "size": "1536x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 12
+      },
+      {
+        "op": "anchorBottom",
+        "coverage": 0.6,
+        "bleed": 0.06
+      },
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "bottom"
+      },
+      {
+        "op": "placeTop",
+        "top": 0.44,
+        "coverage": 0.08,
+        "allowUp": true
+      },
+      {
+        "op": "topFade",
+        "clear": 0.1,
+        "fade": 0.06
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment dark-hallway (M5)"
+  },
+  {
+    "id": "env/dark-hallway/mid",
+    "outPath": "env/dark-hallway/mid.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax MID layer on a fully transparent background. Dim torchlit interior, cold blue-grey stone with warm amber torch glow palette. The layer contains only: a row of thick stone pillars with iron wall torches casting warm amber glow, old tattered tapestries and a closed iron-studded door, drawn as one continuous band running across the entire width from the left edge to the right edge, occupying the bottom 45% of the image and extending solidly down to the bottom edge with no gap. medium values and medium contrast, with a clean silhouette top edge directly against the transparency. Everything above the band is completely empty and transparent: no sky, no clouds, no sun, no background colour.",
+    "size": "1536x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 12
+      },
+      {
+        "op": "anchorBottom",
+        "coverage": 0.6,
+        "bleed": 0.06
+      },
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "bottom"
+      },
+      {
+        "op": "placeTop",
+        "top": 0.57,
+        "coverage": 0.08,
+        "allowUp": true
+      },
+      {
+        "op": "topFade",
+        "clear": 0.23,
+        "fade": 0.06
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment dark-hallway (M5)"
+  },
+  {
+    "id": "env/dark-hallway/fore",
+    "outPath": "env/dark-hallway/fore.webp",
+    "style": "background",
+    "prompt": "Side-scrolling game parallax FORE layer on a fully transparent background. Dim torchlit interior, cold blue-grey stone with warm amber torch glow palette. The layer contains only: a foreground edge of broken flagstones, rubble, scattered bones, a toppled candelabra and cobwebs, drawn as one continuous band running across the entire width from the left edge to the right edge, occupying only the bottom 22% of the image and extending solidly down to the bottom edge with no gap. darker values, richer colour, crisp edges. Everything above the band is completely empty and transparent: no sky, no clouds, no sun, no background colour.",
+    "size": "1536x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "postprocess": [
+      {
+        "op": "alphaClean",
+        "threshold": 12
+      },
+      {
+        "op": "anchorBottom",
+        "coverage": 0.6,
+        "bleed": 0.06
+      },
+      {
+        "op": "seamless",
+        "axes": "x",
+        "width": 2048,
+        "height": 1024,
+        "blend": 0.18,
+        "position": "bottom"
+      },
+      {
+        "op": "placeTop",
+        "top": 0.72,
+        "coverage": 0.08,
+        "allowUp": false
+      },
+      {
+        "op": "topFade",
+        "clear": 0.38,
+        "fade": 0.06
+      },
+      {
+        "op": "webp",
+        "quality": 82,
+        "alphaQuality": 90
+      }
+    ],
+    "notes": "Environment dark-hallway (M5)"
+  }
+]

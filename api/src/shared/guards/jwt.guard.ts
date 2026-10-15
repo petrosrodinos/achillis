@@ -1,37 +1,36 @@
-import { UnauthorizedException } from '@nestjs/common';
+import {
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { JsonWebTokenError } from 'jsonwebtoken';
-import { GqlExecutionContext } from '@nestjs/graphql';
+import { ErrorMessages } from '@/shared/config/error-codes';
 
+/** Requires a valid access token (`wk_access` cookie, or `Authorization: Bearer` fallback). */
+@Injectable()
 export class JwtGuard extends AuthGuard('jwt') {
-    constructor() {
-        super();
+  getRequest(context: ExecutionContext) {
+    return context.switchToHttp().getRequest();
+  }
+
+  handleRequest<TUser>(err: unknown, user: TUser): TUser {
+    if (err || !user) {
+      throw new UnauthorizedException(
+        ErrorMessages.Auth.AUTHENTICATION_REQUIRED,
+      );
     }
+    return user;
+  }
+}
 
-    getRequest(context: any) {
-        const ctx = GqlExecutionContext.create(context);
-        return ctx.getContext().req;
-    }
+/** Attaches the user when a valid access token is present; never rejects. */
+@Injectable()
+export class OptionalJwtGuard extends AuthGuard('jwt') {
+  getRequest(context: ExecutionContext) {
+    return context.switchToHttp().getRequest();
+  }
 
-    handleRequest(err: any, user: any, info: any, context: any, status: any) {
-        if (info instanceof JsonWebTokenError) {
-            throw new UnauthorizedException({
-                message: 'Invalid token',
-                code: 'invalid_token',
-            });
-        }
-
-        if (err || !user) {
-            throw new UnauthorizedException({
-                message: 'Authentication required',
-                code: 'authentication_required',
-            });
-        }
-
-        const ctx = GqlExecutionContext.create(context);
-        const gqlContext = ctx.getContext();
-        gqlContext.user = user;
-
-        return super.handleRequest(err, user, info, context, status);
-    }
+  handleRequest<TUser>(_err: unknown, user: TUser): TUser | null {
+    return user || null;
+  }
 }

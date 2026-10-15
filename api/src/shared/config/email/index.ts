@@ -1,16 +1,20 @@
 import { EmailTemplates } from '@/integrations/notifications/resend/interfaces/mail.interfaces';
 
-const EmailAddress = "info@appointmy.com"
+const EmailAddress = 'info@logiqdev.com';
 
 export const EmailConfig = {
-    email_addresses: {
-        verification: EmailAddress,
-        confirmation: EmailAddress,
+  email_addresses: {
+    verification: EmailAddress,
+    confirmation: EmailAddress,
+  },
+  templates: {
+    email_verification: {
+      subject: 'White Knight — confirm your email',
+      template_id: EmailTemplates.EMAIL_VERIFICATION,
     },
-    templates: {
-        waitlist: {
-            subject: 'Waitlist',
-            template_id: EmailTemplates.WAITLIST,
-        },
-    }
-}
+    password_reset: {
+      subject: 'White Knight — reset your password',
+      template_id: EmailTemplates.PASSWORD_RESET,
+    },
+  },
+};
