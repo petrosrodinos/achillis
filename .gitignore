@@ -1,1 +1,4 @@
 /app/.env
+.env.temp
+.env*.local
+node_modules/
