@@ -18,13 +18,20 @@ B="/c/Program Files/Blender Foundation/Blender 5.2/blender.exe"   # Git Bash
 | Only one asset | `"$B" -b --factory-startup -P tools/blender/build.py -- --only horse` |
 | Humanoid | `"$B" -b --factory-startup -P tools/blender/build_humanoid.py -- app/public/assets/models/humanoid.glb` |
 | Horse | `"$B" -b --factory-startup -P tools/blender/build_horse.py -- app/public/assets/models/horse.glb` |
-| Validate | `"$B" -b --factory-startup -P tools/blender/validate.py [-- humanoid.glb horse.glb]` (exit 1 on failure) |
-| Previews | `"$B" -b --factory-startup -P tools/blender/render_preview.py -- --set all` (`knight`, `loadouts`, `horse`, `mounted`) |
+| Hippogryph / troll / bird / tree / ship / props | `build_hippogryph.py`, `build_troll.py`, `build_bird.py`, `build_tree.py` (→ `haunted-tree.glb`), `build_ship.py`, `build_props.py` — same pattern: `-- <out.glb>` |
+| Wolf / boar | `"$B" -b --factory-startup -P tools/blender/build_beast.py -- app/public/assets/models/wolf.glb --kind wolf` (`--kind boar`) |
+| Validate | `"$B" -b --factory-startup -P tools/blender/validate.py [-- a.glb b.glb …]` (default: every model; exit 1 on failure) |
+| Previews | `"$B" -b --factory-startup -P tools/blender/render_preview.py -- --set all [--views side\|game\|both]` |
 
 Previews are written to `tools/blender/previews/` (git-ignored): `knight_*.png` (every clip at key
-frames / attack phase boundaries), `loadouts.png` (archer, wizard, witch, viking, zombie, saracen, …),
-`horse.png`, `mounted.png` (knight parented to the horse `Saddle`). They render the **exported**
-files with an orthographic camera looking along glTF −Z, like the game.
+frames / attack phase boundaries; `knight_special` = JumpAttack/Plunge/ShieldBash/Lunge/ComboFinisher),
+`loadouts.png` (archer, wizard, witch, viking, zombie, saracen, …), `horse.png`, `mounted.png` (knight
+parented to the horse `Saddle`), and per creature `hippogryph`, `hippogryph_mounted` (knight on the
+hippogryph `Saddle` in Fly/Glide/Idle/Hit), `troll`, `wolf`, `boar`, `bird`, `haunted-tree`, `props`,
+`ship`. Sets: `knight` (or a single `knight_<group>`), `loadouts`, `horse`, `mounted` + the creature names.
+`--views game` adds `*_game.png` turned 0.32 rad towards the camera like the client (actor-layer `YAW`).
+They render the **exported** files with an orthographic camera looking along glTF −Z, like the game.
+(EEVEE in background mode occasionally crashes with EXCEPTION_ACCESS_VIOLATION — just re-run.)
 
 ## Layout
 
@@ -41,6 +48,12 @@ files with an orthographic camera looking along glTF −Z, like the game.
 | `humanoid_parts.py` | every humanoid mesh (base body + all equipment variants) |
 | `humanoid_clips.py` | all 26 humanoid clips |
 | `build_horse.py` | horse geometry, procedural gait cycles, clips |
+| `lib/creature.py` | `LegRig` (planar leg IK on top of full Rig FK, so spine joints such as `J_Chest` count), `gait_leg`/`gait_cycle`, `feather`, `WingSpec` (N-segment layered wings: leading edge, covert rows, secondaries, fanned primaries; L built, R mirrored), `claw`, `eye` |
+| `build_hippogryph.py` | eagle front / horse hind, 3-segment wings (`J_Wing1..3_L/R`), `Saddle` on `J_Body` |
+| `build_troll.py` | 3 m swamp troll, humanoid-style joint names + `Weapon_Club` on `J_Hand_R` |
+| `build_beast.py` | wolf + boar (per-kind geometry tables, shared gallop/lunge/death clips, global `scale`) |
+| `build_bird.py`, `build_tree.py` | bird of prey (reuses `WingSpec`), haunted tree (`J_Root` location drives Rise/Death) |
+| `build_ship.py`, `build_props.py` | static cog (clinker hull, castles, sail, rigging, shields) and 14 prop root nodes; natural colours because the client renders them raw |
 
 ## Conventions
 
@@ -56,6 +69,18 @@ files with an orthographic camera looking along glTF −Z, like the game.
   `Land` 0.25 s) are baked over the next whole frame and uniformly retimed in the GLB.
 - Materials are named exactly per contract; colours are neutral so the client can tint by name.
   Previews tint with the art-bible palette to mimic the client.
+
+## P5-11 asset notes (client-facing)
+
+| File | Notes |
+|---|---|
+| `hippogryph.glb` | Root `Hippogryph`; `Saddle` (child of animated `J_Body`) at glTF (−0.22, 1.64, 0) — same convention as horse (rider root on it, humanoid mounted clips put the pelvis 0.10 m above). Body stays at ground-relative height in Fly/Glide (no baked altitude); Land starts 0.55 m up and ends in the Idle pose. Wingspan ≈ 5.8 m at rest. |
+| `troll.glb` | ≈ 3.0 m at scale 1 (use `look.scale` 1). Joint names mirror the humanoid (`J_Hips`, `J_Hand_R` …), plus `Socket_Head`, `Socket_Projectile`. Extra clip `Stunned` (loop 1.0) because the shared humanoid pose mapper can request it. Club reach at AttackHeavy impact ≈ 3 m. |
+| `wolf.glb` / `boar.glb` | ≈ 0.95 m incl. ears / bristles; Attack lunges the body ≈ 0.55 m forward inside the clip (root stays put). |
+| `bird.glb` | Origin under the body (body centre 0.30 m up); wingspan 1.44 m. |
+| `haunted-tree.glb` | Face points forward and 40° towards the camera; Rise starts ~5.8 m below y=0, Death ends fully below ground. |
+| `ship.glb` | Root `Ship`, bow +X, origin on the **waterline** mid-ship (keel −1.1, castles 4.0–4.3, mast top 13.2, bowsprit to x=8.6; hull 14.6 m). `Deck_Archer_Spot_1..3` = aft castle (−5.3, 4.02), forecastle (6.1, 4.32), main deck (2.3, 1.77). Static; only `Primary` (sail, pennant, half the rail shields) is meant to be tinted. |
+| `props.glb` | 14 root empties named per contract with `<Name>_Mesh` children; roots are spread along glTF +Z in the file — read each node's own transform (`propGeometry` already does). Rocks use an extra `Stone` material. |
 
 ## Adding an asset
 

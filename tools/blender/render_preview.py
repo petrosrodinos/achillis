@@ -266,14 +266,17 @@ def humanoid_sheets(hpath, outdir, which):
         "knight_attacks": ["AttackLight", "AttackHeavy", "Cast", "Shoot", "Throw"],
         "knight_reactions": ["Hit", "Stagger", "Stunned", "Death", "Victory"],
         "knight_mounted": ["MountedIdle", "MountedRide", "MountedAttackLight", "MountedAttackHeavy", "MountedBlock", "MountedHit", "FlyRide"],
+        "knight_special": ["JumpAttack", "Plunge", "ShieldBash", "Lunge", "ComboFinisher"],
     }
-    if "knight" in which:
+    if "knight" in which or any(g in which for g in groups):
         label = setup_stage((300, 330), 2.9, 0.15, 1.05)
         objs = import_glb(hpath)
         apply_loadout(objs, KNIGHT)
         tint(objs, KNIGHT["colors"])
         label.location = (-1.2, -2.0, 2.3)
         for gname, clip_names in groups.items():
+            if "knight" not in which and gname not in which:
+                continue
             tiles = []
             cols = 6
             for clip in clip_names:

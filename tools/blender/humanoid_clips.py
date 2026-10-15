@@ -357,6 +357,93 @@ def fly_ride():
     return [K(0, F), K(12, up), K(24, F)]
 
 
+# --------------------------------------------------------------------------------------------
+# special attacks (†) — same 4-phase timing (0 / 10.5 / 15 / 18 / 30)
+# --------------------------------------------------------------------------------------------
+
+TUCK_LEGS = dict(legL=("fk", -78, 28, 30), legR=("fk", -36, 62, 45))
+
+
+def jump_attack():
+    """Airborne horizontal slash: legs tucked the whole time (the sim moves the root through the air)."""
+    air = dict(AIR, **TUCK_LEGS)
+    wind = dict(air, hips=(-0.03, 0, 0.04), hr=-8, chest=-8, twist=-42, head=4,
+                armR=("abs", 62, 10, 170), splayArmR=34, armL=("abs", -55, -100, 0), cape=(60, 30))
+    wind_in = dict(wind, armR=("abs", 55, 0, 160), twist=-36)
+    imp = dict(air, hips=(0.06, 0, 0.06), hr=14, chest=12, twist=40, head=-20,
+               armR=("abs", -84, -92, 4), splayArmR=26, armL=("abs", 10, -60, 0), cape=(80, 40),
+               legL=("fk", -66, 18, 25), legR=("fk", -20, 70, 50))
+    fol = dict(imp, armR=("abs", -70, -64, 30), twist=48, chest=14)
+    end = dict(air, legL=("fk", -55, 10, 25), legR=("fk", -15, 45, 45))
+    return [K(0, GUARD, "EASE_OUT"), K(4, air), K(A_ANT * 0.8, wind_in), K(A_ANT, wind, "EASE_IN"),
+            K(A_SWING, imp, "EASE_OUT"), K(A_IMP, fol), K(A_END, end)]
+
+
+def plunge():
+    """Sword raised overhead in the air → dive blade-down → crouched two-handed ground slam → rise."""
+    air = dict(AIR, **TUCK_LEGS)
+    wind = dict(air, hips=(-0.02, 0, 0.10), hr=-10, spine=-6, chest=-10, head=10,
+                armR=("abs", -175, -190, -200), armL=("abs", -165, -185, 0), splayArmR=2, splayArmL=-4, cape=(70, 30))
+    wind_in = dict(wind, armR=("abs", -165, -180, -190), armL=("abs", -158, -178, 0))
+    dive = dict(air, hips=(0.08, 0, -0.05), hr=26, chest=14, head=-30,
+                armR=("abs", -40, -20, 92), armL=("abs", -38, -24, 0), splayArmR=-6, splayArmL=-10,
+                legL=("fk", -40, 40, 30), legR=("fk", -10, 60, 40), cape=(110, 50))
+    slam = dict(GUARD, hips=(0.10, 0, -0.46), hr=38, spine=8, chest=14, head=-40,
+                armR=("abs", -22, -6, 95), armL=("abs", -20, -8, 0), splayArmR=-8, splayArmL=-12,
+                legL=("ik", 0.42, ANKLE_Z, 0), legR=("ik", -0.34, ANKLE_Z, 10), splayL=6, splayR=6, cape=(-10, -10))
+    hold = dict(slam, hips=(0.10, 0, -0.48), chest=16, armR=("abs", -20, -4, 96))
+    rise = dict(GUARD, hips=(0.06, 0, -0.16), hr=12, chest=6, head=-16, armR=("abs", 10, -40, -20),
+                legL=("ik", 0.34, ANKLE_Z, 0), legR=("ik", -0.26, ANKLE_Z, 0))
+    return [K(0, GUARD, "EASE_OUT"), K(4, air), K(A_ANT * 0.8, wind_in), K(A_ANT, wind, "EASE_IN"),
+            K(13, dive, "EASE_IN"), K(A_SWING, slam, "EASE_OUT"), K(A_IMP, hold), K(24, rise), K(A_END, GUARD)]
+
+
+def shield_bash():
+    """Shield-arm shove with the body weight behind it; sword held back."""
+    wind = dict(GUARD, hips=(-0.08, 0, -0.10), hr=-6, chest=-6, twist=26, head=-4,
+                armL=("abs", 18, -55, 0), armR=("abs", 46, 0, 150), splayArmR=12,
+                legL=("ik", 0.18, ANKLE_Z, 0), legR=("ik", -0.30, ANKLE_Z, 0), cape=(4, 2))
+    wind_in = dict(wind, armL=("abs", 10, -62, 0), twist=22)
+    imp = dict(GUARD, hips=(0.30, 0, -0.16), hr=22, spine=6, chest=10, twist=-26, head=-24,
+               armL=("abs", -78, -84, 0), splayArmL=4, armR=("abs", 50, 20, 160), splayArmR=14,
+               legL=("ik", 0.66, ANKLE_Z, 0), legR=("ik", -0.30, ANKLE_Z + 0.03, 30), cape=(30, 16))
+    fol = dict(imp, hips=(0.33, 0, -0.17), armL=("abs", -84, -88, 0), chest=12)
+    return [K(0, GUARD, "EASE_OUT"), K(A_ANT * 0.8, wind_in), K(A_ANT, wind, "EASE_IN"), K(A_SWING, imp, "EASE_OUT"),
+            K(A_IMP, fol), K(A_END, GUARD)]
+
+
+def lunge():
+    """Long forward thrust with a deep front-leg lunge."""
+    wind = dict(GUARD, hips=(-0.10, 0, -0.10), hr=-4, chest=-6, twist=-24, head=-6,
+                armR=("abs", 62, -62, 2), splayArmR=10, armL=("abs", -30, -90, 0),
+                legL=("ik", 0.22, ANKLE_Z, 0), legR=("ik", -0.32, ANKLE_Z, 0), cape=(6, 4))
+    wind_in = dict(wind, armR=("abs", 56, -66, 2), hips=(-0.08, 0, -0.09))
+    imp = dict(GUARD, hips=(0.38, 0, -0.36), hr=18, spine=6, chest=8, twist=6, head=-22,
+               armR=("abs", -84, -88, 4), splayArmR=8, armL=("abs", 30, -10, 0), splayArmL=14,
+               legL=("ik", 0.92, ANKLE_Z, -4), legR=("ik", -0.40, ANKLE_Z + 0.02, 40), cape=(34, 18))
+    fol = dict(imp, hips=(0.40, 0, -0.37), armR=("abs", -86, -90, 2))
+    return [K(0, GUARD, "EASE_OUT"), K(A_ANT * 0.8, wind_in), K(A_ANT, wind, "EASE_IN"), K(A_SWING, imp, "EASE_OUT"),
+            K(A_IMP, fol), K(24, dict(fol, hips=(0.30, 0, -0.30)), "EASE_IN_OUT"), K(A_END, GUARD)]
+
+
+def combo_finisher():
+    """Full 360° spinning horizontal slash (pelvis spins about the vertical), ending in a held power pose."""
+    wind = dict(GUARD, hips=(-0.06, 0, -0.14), hr=-4, chest=-8, twist=-46, head=0,
+                armR=("abs", -70, -80, -10), splayArmR=40, armL=("abs", -30, -100, 0),
+                legL=("ik", 0.16, ANKLE_Z, 0), legR=("ik", -0.14, ANKLE_Z, 0), cape=(10, 6))
+    spin = dict(GUARD, hips=(0.0, 0, -0.10), hr=4, chest=4, twist=0, head=-10,
+                armR=("abs", -84, -88, -4), splayArmR=24, armL=("abs", -20, -70, 0),
+                legL=("ik", 0.06, ANKLE_Z + 0.04, 0), legR=("ik", -0.06, ANKLE_Z, 0), cape=(60, 30))
+    imp = dict(GUARD, hips=(0.24, 0, -0.30), hr=18, spine=6, chest=10, twist=8, head=-24,
+               armR=("abs", -80, -86, 10), splayArmR=12, armL=("abs", 30, 0, 0), splayArmL=20,
+               legL=("ik", 0.60, ANKLE_Z, 0), legR=("ik", -0.36, ANKLE_Z + 0.02, 30), cape=(40, 20))
+    pose_ = dict(imp, hips=(0.26, 0, -0.34), twist=16, chest=12, armR=("abs", -60, -50, 40), splayArmR=26, cape=(30, 14))
+    return [K(0, GUARD, "EASE_OUT"), K(A_ANT, wind, "EASE_IN", hrz=0),
+            K(12.0, spin, "LINEAR", hrz=120), K(13.5, spin, "LINEAR", hrz=245),
+            K(A_SWING, imp, "EASE_OUT", hrz=360), K(A_IMP, pose_, hrz=360), K(26, pose_, "EASE_IN_OUT", hrz=360),
+            K(A_END, GUARD, hrz=360)]
+
+
 # name: (seconds, builder, cyclic, baked_frames)
 CLIPS = [
     ("Idle", 2.0, idle, True),
@@ -385,7 +472,14 @@ CLIPS = [
     ("MountedBlock", 1.0, m_block, True),
     ("MountedHit", 0.4, m_hit, False),
     ("FlyRide", 0.8, fly_ride, True),
+    ("JumpAttack", 1.0, jump_attack, False),
+    ("Plunge", 1.0, plunge, False),
+    ("ShieldBash", 1.0, shield_bash, False),
+    ("Lunge", 1.0, lunge, False),
+    ("ComboFinisher", 1.0, combo_finisher, False),
 ]
+ATTACK_CLIPS = ("AttackLight", "AttackHeavy", "Cast", "Shoot", "Throw", "MountedAttackLight", "MountedAttackHeavy",
+                "JumpAttack", "Plunge", "ShieldBash", "Lunge", "ComboFinisher")
 
 
 def baked_frames(seconds):
@@ -396,7 +490,9 @@ def preview_frames(name):
     """Representative frames for previews (phase boundaries for attacks)."""
     secs = dict((c[0], c[1]) for c in CLIPS)[name]
     end = baked_frames(secs)
-    if name in ("AttackLight", "AttackHeavy", "Cast", "Shoot", "Throw", "MountedAttackLight", "MountedAttackHeavy"):
+    if name == "ComboFinisher":
+        return [0, 10.5, 12, 13.5, 15, 18]
+    if name in ATTACK_CLIPS:
         return [0, 10.5, 13, 15, 18, 30]
     if name == "Death":
         return [0, 11, 20, 26, 36]

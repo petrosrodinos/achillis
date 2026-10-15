@@ -62,7 +62,7 @@ export const MISSION_CONFIGS: Record<Exclude<MissionId, 'm07'>, MissionConfig> =
         {
           kind: 'ground', title: 'The Forest Road', env: 'forest', ground: 'dirt', length: 70, ambience: 'amb-forest',
           waves: [{ count: W1, enemies: [{ look: 'infantry', weight: 3 }, { look: 'archer', weight: 1 }], maxAlive: 3 }],
-          hazards: [{ kind: 'projectiles', every: 9, projectile: 'arrow', origin: 'right' }],
+          hazards: [{ kind: 'projectiles', every: 15, projectile: 'arrow', origin: 'right' }],
         },
         {
           kind: 'ground', title: 'The Mountain Pass', env: 'mountains', ground: 'stone', length: 80, ambience: 'amb-wind',
@@ -100,7 +100,7 @@ export const MISSION_CONFIGS: Record<Exclude<MissionId, 'm07'>, MissionConfig> =
         {
           kind: 'ground', title: 'The High Mountains', env: 'mountains', ground: 'snow', length: 70, ambience: 'amb-wind',
           waves: [{ count: W1, enemies: [{ look: 'spearman', weight: 2 }, { look: 'infantry', weight: 2 }], maxAlive: 3 }],
-          hazards: [{ kind: 'projectiles', every: 8, projectile: 'javelin', origin: 'right' }],
+          hazards: [{ kind: 'projectiles', every: 12, projectile: 'javelin', origin: 'right' }],
         },
         {
           kind: 'ground', title: 'The Coast Road', env: 'coastline', ground: 'sand', length: 80, ambience: 'amb-sea',
@@ -391,7 +391,7 @@ export const MISSION_CONFIGS: Record<Exclude<MissionId, 'm07'>, MissionConfig> =
             { count: 5, enemies: [{ look: 'balkan-soldier', weight: 2 }, { look: 'boar', weight: 1 }], maxAlive: 4 },
             { count: W2 - 5, enemies: [{ look: 'balkan-soldier', weight: 2 }, { look: 'archer', weight: 1 }, { look: 'wolf', weight: 1 }], maxAlive: 4 },
           ],
-          hazards: [{ kind: 'projectiles', every: 8, projectile: 'javelin', origin: 'right' }],
+          hazards: [{ kind: 'projectiles', every: 12, projectile: 'javelin', origin: 'right' }],
         },
         {
           kind: 'ground', title: 'The German Fields', env: 'german-fields', ground: 'grass', length: 90, ambience: 'amb-wind',

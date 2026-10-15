@@ -204,6 +204,7 @@ def front_leg_geos(side, s):
     hb = Vector((0.45, y, 0.07))
     f.add(sweep([hb, hb + Vector((-0.09, 0, -0.03))], [S(0.026), S(0.022)], seg=8, normal_hint=(0, 0, 1), mat="Beak"))
     f.add(claw(hb + Vector((-0.095, 0, -0.03)), (-1, 0, -0.2), 0.07, 0.016, "Eye", curl=0.9))
+    f.deform(lambda v: Vector((v.x, v.y, max(v.z, 0.004))))
     out.append(("Hippogryph_FrontFoot_" + side, f, "J_FrontFoot_" + side))
     return out
 

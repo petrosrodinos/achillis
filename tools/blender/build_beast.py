@@ -155,7 +155,7 @@ def paw(x, y):
 
 
 WOLF = dict(
-    root="Wolf",
+    root="Wolf", scale=0.88, lie=0.17,
     materials=["Coat", "Mane", "Eye"],
     joints=[("J_Body", (-0.05, 0.0, 0.62), None), ("J_Chest", (0.24, 0.0, 0.63), "J_Body"),
             ("J_Neck", (0.46, 0.0, 0.70), "J_Chest"), ("J_Head", (0.66, 0.0, 0.85), "J_Neck"),
@@ -248,7 +248,7 @@ def trotter(x, y):
 
 
 BOAR = dict(
-    root="Boar",
+    root="Boar", scale=0.92, lie=0.29,
     materials=["Coat", "Mane", "Eye", "Horn"],
     joints=[("J_Body", (-0.05, 0.0, 0.57), None), ("J_Chest", (0.22, 0.0, 0.59), "J_Body"),
             ("J_Neck", (0.42, 0.0, 0.62), "J_Chest"), ("J_Head", (0.56, 0.0, 0.64), "J_Neck"),
@@ -268,10 +268,14 @@ KINDS = {"wolf": WOLF, "boar": BOAR}
 # =============================================================================================
 
 LEGRIG = None
+SC = 1.0
 
 
 def bpose(body_l=(0, 0, 0), body_r=0.0, body_x=0.0, chest=0.0, neck=0.0, head=0.0, head_yaw=0.0, jaw=0.0,
           tail=(0.0, 0.0), legs=None):
+    body_l = tuple(c * SC for c in body_l)
+    if legs:
+        legs = {k: (("ik", v[1] * SC, v[2] * SC, v[3]) if v[0] == "ik" else v) for k, v in legs.items()}
     p = {"J_Body": {"r": (body_x, body_r, 0), "l": tuple(body_l)}, "J_Chest": {"r": (0, chest, 0)},
          "J_Neck": {"r": (0, neck, 0)}, "J_Head": {"r": (0, head, head_yaw)}, "J_Jaw": {"r": (0, -jaw, 0)},
          "J_Tail": {"r": (0, tail[0], tail[1])}}
@@ -349,10 +353,11 @@ def clip_death(kind):
                  legs={"FL": ("ik", -0.06, 0.08, 0), "FR": ("ik", 0.02, 0, 0)})
     buckle = bpose(body_l=(-0.04, 0, -0.22), body_r=8, body_x=12, chest=8, neck=10, head=-6, jaw=20,
                    legs={"FL": ("fk", -10, 100, 30), "FR": ("fk", -20, 90, 30), "HL": ("fk", -40, 70, 20), "HR": ("fk", -30, 60, 20)})
-    roll = bpose(body_l=(-0.04, 0, -h + 0.22), body_r=0, body_x=60, chest=4, neck=16, head=-10, jaw=16,
+    lie = KINDS[kind]["lie"]
+    roll = bpose(body_l=(-0.04, 0, -h + lie + 0.06), body_r=0, body_x=60, chest=4, neck=16, head=-10, jaw=16,
                  legs={"FL": ("fk", -30, 40, 20), "FR": ("fk", -50, 50, 20), "HL": ("fk", 30, -20, 10), "HR": ("fk", 20, -10, 10)},
                  tail=(20, 0))
-    lying = bpose(body_l=(-0.04, 0, -h + 0.16), body_r=0, body_x=84, chest=4, neck=20, head=-14, jaw=22,
+    lying = bpose(body_l=(-0.04, 0, -h + lie), body_r=0, body_x=84, chest=4, neck=20, head=-14, jaw=22,
                   legs={"FL": ("fk", -40, 20, 10), "FR": ("fk", -55, 30, 10), "HL": ("fk", 40, -20, 10), "HR": ("fk", 30, -10, 10)},
                   tail=(30, 0))
     return [Key(0, idle, "EASE_OUT"), Key(4, stag), Key(12, buckle, "EASE_IN"), Key(20, roll, "EASE_IN"),
@@ -360,18 +365,20 @@ def clip_death(kind):
 
 
 def build(kind):
-    global LEGRIG
+    global LEGRIG, SC
     cfg = KINDS[kind]
+    SC = cfg.get("scale", 1.0)
     scene.reset()
     mats = materials.library(cfg["materials"])
     rig = Rig(cfg["root"])
     lj, legs = leg_joints(*cfg["legs"])
-    joints = cfg["joints"] + lj
+    joints = [(n, tuple(c * SC for c in h), p) for n, h, p in cfg["joints"] + lj]
     for name, head, parent in joints:
         rig.joint(name, head, parent)
     LEGRIG = LegRig(rig, legs)
     tris = 0
     for name, g, joint in cfg["parts"]():
+        g.scale(SC)
         obj = geom.to_object(name, g, mats)
         rig.attach(obj, joint)
         tris += g.tri_count()

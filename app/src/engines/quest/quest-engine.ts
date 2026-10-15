@@ -237,7 +237,7 @@ export class QuestEngine extends EngineBase {
       w.bounds = { minX: 0, maxX: s.length };
       const more = this.waveCursor < s.waves.length;
       this.phase = more ? 'explore' : 'cleared';
-      this.banner(more ? 'Wave cleared' : 'Stage cleared', more ? 'Press on' : 'Advance →');
+      this.banner(more ? 'Wave cleared' : 'Stage cleared', more ? 'Press on →' : 'Advance →');
       // A breather between waves: restore a block of health.
       const p = w.player!;
       if (isAlive(p)) {
@@ -275,7 +275,7 @@ export class QuestEngine extends EngineBase {
           w.addHazard({ kind: 'lightning', x: clamp(ahead + w.rng.range(-2, 2), w.bounds.minX, w.bounds.maxX), y: 0, width: 1.8, warn: 1.0, active: 0, rest: 0, dir: 0, power: 0, damage: DAMAGE.storm, team: -1 });
           break;
         case 'projectiles':
-          w.addHazard({ kind: 'emitter', x: p.x, y: 0, width: 0, warn: 0, active: 0, rest: 0, dir: h.origin === 'left' ? -1 : 1, power: 0, damage: 0, team: 1, projectile: h.projectile, rate: 0.01, variant: h.origin === 'below' ? 'below' : h.origin === 'above' ? 'above' : 'side' });
+          w.addHazard({ kind: 'emitter', x: p.x, y: 0, width: 0, warn: 0, active: 0, rest: 0, dir: h.origin === 'left' ? -1 : 1, power: 0, damage: 0, team: 1, projectile: h.projectile, rate: 1, t: 0.99, variant: h.origin === 'below' ? 'below' : h.origin === 'above' ? 'above' : 'side' });
           // One-shot emitter: removed next step after firing.
           break;
         case 'birds': {
@@ -293,7 +293,8 @@ export class QuestEngine extends EngineBase {
       }
     });
     // Retire one-shot emitters after they fired.
-    for (const h of w.hazards) if (h.kind === 'emitter' && h.t > 0.05) h.dead = true;
+    // One-shot emitters start just before their first tick (t 0.99, rate 1): exactly one shot, then retire.
+    for (const h of w.hazards) if (h.kind === 'emitter' && h.t > 1.01) h.dead = true;
   }
 
   private updateFlight(dt: number) {
@@ -470,7 +471,7 @@ export class QuestEngine extends EngineBase {
       for (let i = this.waveCursor; i < s.waves.length; i++) remaining += s.waves[i].count;
       if (this.wave) remaining -= this.wave.ids.filter((id) => !isAlive(w.byId(id) ?? ({ action: 'dead', removed: true } as Fighter))).length;
       h.enemiesRemaining = Math.max(0, remaining);
-      h.objective = this.phase === 'wave' ? 'Defeat the wave' : this.phase === 'cleared' ? 'Advance to the next stage →' : 'Press on';
+      h.objective = this.phase === 'wave' ? 'Defeat the wave' : this.phase === 'cleared' ? 'Advance to the next stage →' : 'Press on →';
       if (this.phase === 'cleared') h.prompt = 'Advance →';
     } else if (s.kind === 'flight') {
       const p = w.player;

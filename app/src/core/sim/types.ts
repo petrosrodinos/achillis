@@ -57,6 +57,8 @@ export interface FighterStats {
   /** Damage dealt by touching (birds, ghosts). */
   contactDamage: number;
   flying: boolean;
+  /** Multiplies the anticipation (wind-up) of attacks; rank-and-file enemies telegraph longer. */
+  windup: number;
 }
 
 /** Visual identity resolved by the renderer (content/loadouts.ts). */

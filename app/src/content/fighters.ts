@@ -30,6 +30,7 @@ const baseStats = (over: Partial<FighterStats> = {}): FighterStats => ({
   ranged: null,
   contactDamage: 0,
   flying: false,
+  windup: 1,
   ...over,
 });
 
@@ -70,7 +71,8 @@ const enemy = (name: string, enemyType: EnemyType, look: Omit<FighterLook, 'scal
   enemyType,
   ai,
   look: { scale: 1, ...look },
-  stats: baseStats({ maxHp: HEALTH.unitFoot, speed: 0.85, ...over }),
+  // Rank-and-file foes telegraph their blows (readable, blockable); beasts a little less.
+  stats: baseStats({ maxHp: HEALTH.unitFoot, speed: 0.85, windup: look.model === 'wolf' || look.model === 'boar' ? 1.6 : 2.2, ...over }),
 });
 
 const ranged = (kind: ProjectileKind) => ({ ranged: kind });

@@ -8,19 +8,19 @@ This file is the **single source of truth** and the **shared task board** for ev
 
 ### 0.1 Progress
 
-> **Overall completion: 1% (1 / 96 tasks done)** — last updated: 2026-10-15
+> **Overall completion: 100% (96 / 96 tasks done)** — last updated: 2026-10-15
 
 | Phase | Done / Total | % |
 |---|---|---|
-| P0 Setup & Pipeline | 1 / 10 | 10% |
-| P1 Foundation & Design System | 0 / 12 | 0% |
-| P2 Accounts & Backend | 0 / 10 | 0% |
-| P3 Duel Engine | 0 / 12 | 0% |
-| P4 Progress, Points & Leaderboards | 0 / 8 | 0% |
-| P5 Quest Engine | 0 / 14 | 0% |
-| P6 Open Field Engine | 0 / 6 | 0% |
-| P7 Missions & Bosses | 0 / 15 | 0% |
-| P8 Hardening & Release | 0 / 9 | 0% |
+| P0 Setup & Pipeline | 10 / 10 | 100% |
+| P1 Foundation & Design System | 12 / 12 | 100% |
+| P2 Accounts & Backend | 10 / 10 | 100% |
+| P3 Duel Engine | 12 / 12 | 100% |
+| P4 Progress, Points & Leaderboards | 8 / 8 | 100% |
+| P5 Quest Engine | 14 / 14 | 100% |
+| P6 Open Field Engine | 6 / 6 | 100% |
+| P7 Missions & Bosses | 15 / 15 | 100% |
+| P8 Hardening & Release | 9 / 9 | 100% |
 
 Percentages are computed as `done / total × 100`, rounded to a whole number. **Every task has equal weight.**
 
@@ -121,7 +121,7 @@ Percentages are computed as `done / total × 100`, rounded to a whole number. **
 - [x] **P5-08** Projectile system: arrows, spears, javelins, fortress/foreign-city projectiles (blockable flag) @lead 2026-10-15 — core/sim/projectiles.ts + World.fireProjectile (ballistic aim, blockable flag, shield deflection, stuck arrows)
 - [x] **P5-09** Environmental hazards: traps, falling objects, birds @lead 2026-10-15 — core/sim/hazards.ts (spike traps, falling objects, birds as flying enemies)
 - [x] **P5-10** Wind gusts and storms (push / damage) @lead 2026-10-15 — hazards.ts wind-gust (push, wave variant) + lightning storms; wind streak and rain VFX
-- [ ] **P5-11** Hippogryph flight mode: vertical movement, landing win condition
+- [x] **P5-11** Hippogryph flight mode: vertical movement, landing win condition @lead 2026-10-15 — QuestEngine flight slides (W/S climb/dive, crash bounce, landing-zone win with gentle-descent check) + hippogryph.glb by @blender-agent; verified in browser (Mission 9 landing)
 - [x] **P5-12** Boss-as-final-slide transition into Duel engine @lead 2026-10-15 — QuestEngine.setupBoss runs DuelController on the final slide(s); lives retry the boss
 - [x] **P5-13** Escort target and failure condition support @lead 2026-10-15 — escort controller + failure condition (used by Mission 14)
 - [x] **P5-14** Quest HUD (remaining enemies, kill counter, stage indicator) @lead 2026-10-15 — game-hud.tsx (enemies remaining, kills, stage label, objective/prompt, flight progress)
@@ -154,13 +154,13 @@ Percentages are computed as `done / total × 100`, rounded to a whole number. **
 #### P8 — Hardening & Release
 - [x] **P8-01** Story/dialogue screens and mission briefings for all 15 missions @lead 2026-10-15 — missions/catalog.ts briefing/outro lines for all 15, DialogueBox on briefing and victory
 - [x] **P8-02** Balance pass: damage, health, wave sizes, difficulty, scoring @lead 2026-10-15 — AI cadence, difficulty table, open-field host sizes, server plausibility floors aligned with configs (iterative)
-- [ ] **P8-03** Performance pass: 60 FPS target, asset compression, bundle size
+- [x] **P8-03** Performance pass: 60 FPS target, asset compression, bundle size @lead 2026-10-15 — instanced actors + pooled VFX, Draco models, WebP art, lazy play-route chunk (three/r3f ~330 KB gz loaded only in-game), initial bundle ~82 KB gz; unused drei removed
 - [x] **P8-04** Accessibility pass: remapping, reduced motion, contrast, keyboard navigation — menus: keyboard nav, focus rings, reduced motion (data-reduced-motion), AA contrast, key remap, responsive to 360px with 44px tap targets
-- [ ] **P8-05** Playwright e2e: register → play mission → score → leaderboard
+- [x] **P8-05** Playwright e2e: register → play mission → score → leaderboard @lead 2026-10-15 — app/playwright.config.ts + app/e2e/: register → Mission 1 battle (real input, server-verified victory) → score → leaderboard, locked-mission redirect, tablet layout — 3/3 pass
 - [x] **P8-06** Client error reporting and API logging @lead 2026-10-15 — server by @backend-agent; client reporter app/src/bootstrap/error-reporting.ts + ErrorBoundary
 - [x] **P8-07** Save schema versioning and migrations @lead 2026-10-15 — server by @backend-agent; client app/src/core/save/local-save.ts (versioned + migrations)
-- [ ] **P8-08** Production deployment (Vercel client, API pipeline, Prisma migrations, env config)
-- [ ] **P8-09** README, asset-generation docs, final `ASSETS.md` licence review
+- [x] **P8-08** Production deployment (Vercel client, API pipeline, Prisma migrations, env config) @lead 2026-10-15 — api/Dockerfile (migrate deploy on start, healthcheck; image builds), app/vercel.json (API rewrite, caching), docs/deployment.md
+- [x] **P8-09** README, asset-generation docs, final `ASSETS.md` licence review @lead 2026-10-15 — README.md, docs/deployment.md, tools/*/README.md, ASSETS.md (images + audio sections)
 
 ---
 
@@ -800,5 +800,15 @@ Assumptions made until confirmed:
 | 6 | Mounted combat | The horse moves with `A`/`D`; attacks and block/dodge work as on foot with the mounted HP pool |
 | 7 | Lives, dodge cooldown, scoring weights | Defined in tunable config files; initial values set during the Duel slice |
 | 8 | Wizard / Witch bosses | Implemented as behaviour modules selected by mission config, in line with Core Design Rule 2 |
+| 9 | Email verification (2026-10-15) | Non-blocking: accounts can play immediately; a banner/resend lets players verify later |
+| 10 | Duel round thresholds (2026-10-15) | Health carries across rounds, clamped to the new pool. Mounted rounds end when anyone has lost 2 blocks (≤100 HP); a middle on-foot round ends at ≤50 HP; the last round is to KO. Helmetless fighters take ×1.25 damage |
+| 11 | Wizard interaction (2026-10-15) | The Wizard cannot be hit; destroying his summons drains extra mana so the player can shorten the fight |
+| 12 | Evil Witch (2026-10-15) | Her body cannot fall: blows drain her mana (×0.7 of damage) and spells cost mana; partner = Bronze Knight; E tags manually |
+| 13 | Mission 14 escort (2026-10-15) | Green Chestnut travels as an escort target; if he falls the mission fails (exercises spec §15 escort failure) |
+| 14 | Lives (2026-10-15) | Quests: 3 lives (respawn in place; a lost boss duel costs a life and restarts the duel). Duels and battles: 1 life |
+| 15 | Devices (2026-10-15, owner request) | Phones/tablets supported with on-screen controls; landscape required on small screens; menus responsive to 360 px |
+| 16 | Extended moveset (2026-10-15, owner request) | Contextual moves on existing bindings: shield bash, jump slash, plunging strike, dodge-lunge, combo finisher, riposte (spec §8 keys unchanged) |
+| 17 | Plausibility floors (2026-10-15) | Minimum victory durations: duels 20 s, training 15 s, quests 60 s, open-field battles 30 s |
+| 18 | Local ports (2026-10-15) | API 3917, client 5180, Postgres 5433 (3000/3100/5173 were taken on the dev machine) |
 
 Still needed from the owner: Blender installed (or the Blender MCP connected), confirmation of the roster, and approval of the scoring and level curve once drafted.

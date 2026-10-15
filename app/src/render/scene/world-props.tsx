@@ -88,6 +88,12 @@ export function WorldProps({ world }: Props) {
     const wood = new THREE.MeshStandardMaterial({ color: '#8a6a44', roughness: 0.8 });
     const iron = new THREE.MeshStandardMaterial({ color: '#8d9096', roughness: 0.45, metalness: 0.6 });
     const stone = new THREE.MeshStandardMaterial({ color: '#7d766c', roughness: 0.95 });
+    // Landing walls use the painted stone texture, tiled in world units.
+    const wallTex = new THREE.TextureLoader().load('/assets/images/ground/stone.webp');
+    wallTex.colorSpace = THREE.SRGBColorSpace;
+    wallTex.wrapS = wallTex.wrapT = THREE.MirroredRepeatWrapping;
+    wallTex.repeat.set(3, 2);
+    const wallMat = new THREE.MeshStandardMaterial({ map: wallTex, color: '#b8ada0', roughness: 0.95 });
     const glow = new THREE.MeshBasicMaterial({ map: glowTexture(), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
     const shadow = new THREE.MeshBasicMaterial({ map: glowTexture(), color: '#000000', transparent: true, opacity: 0.38, depthWrite: false });
     const beamMat = new THREE.MeshBasicMaterial({ map: glowTexture(), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
@@ -110,7 +116,7 @@ export function WorldProps({ world }: Props) {
       glow: new Pool(quad, glow, 256, 30),
       shadow: new Pool(quad, shadow, 256, -5),
       beam: new Pool(quad, beamMat, 16, 31),
-      platform: new Pool(new THREE.BoxGeometry(1, 1, 3), stone, 4),
+      platform: new Pool(new THREE.BoxGeometry(1, 1, 3), wallMat, 4),
       flag: new Pool(propGeometry(props, 'LandingFlag', () => new THREE.BoxGeometry(0.08, 3, 0.08).translate(0, 1.5, 0)), wood, 4),
     };
     pools.glow.mesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(256 * 3), 3);
@@ -216,7 +222,8 @@ export function WorldProps({ world }: Props) {
         else if (local < h.warn + h.active) rise = 1;
         else if (local < h.warn + h.active + 0.25) rise = 1 - (local - h.warn - h.active) / 0.25;
         put(pools.trapBase, h.x, 0.02, -0.2, 0, 1);
-        put(pools.trapSpikes, h.x, -0.7 + rise * 0.72, -0.2, 0, 1);
+        // Spikes grow out of the plate (scaled from their base) so nothing shows below ground when retracted.
+        if (rise > 0.02) put(pools.trapSpikes, h.x, 0.04, -0.2, 0, 1, rise, 1);
         if (local < h.warn) put(pools.glow, h.x, 0.1, -0.1, 0, 2, 0.5, 1, '#ff5a2a');
         break;
       }

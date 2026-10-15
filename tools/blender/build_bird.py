@@ -20,9 +20,9 @@ from lib.geom import section as S, superquad, sweep  # noqa: E402
 from lib.rig import Rig  # noqa: E402
 
 MATERIALS = ["Feathers", "Beak", "Eye"]
-WING = WingSpec(root=(0.05, 0.06, 0.34), spans=[0.19, 0.21, 0.13], le_th=[0.028, 0.022, 0.016],
-                coverts=[(0.09, 0.011), (0.08, 0.009)], secondary=(4, 0.21, 0.05),
-                primary=(6, 0.20, 0.30, 0.05, 8, 64), thick=0.006)
+WING = WingSpec(root=(0.05, 0.06, 0.34), spans=[0.15, 0.17, 0.11], le_th=[0.028, 0.022, 0.016],
+                coverts=[(0.09, 0.011), (0.08, 0.009)], secondary=(4, 0.18, 0.048),
+                primary=(6, 0.17, 0.26, 0.046, 8, 64), thick=0.006)
 JOINTS = [("J_Body", (0.0, 0.0, 0.30), None), ("J_Head", (0.15, 0.0, 0.35), "J_Body"),
           ("J_Tail", (-0.17, 0.0, 0.31), "J_Body")] + WING.joints("J_Body")
 

@@ -97,13 +97,20 @@ export function attackTiming(action: AttackAction) {
   return ATTACK_TIMING[action];
 }
 
+/** Attack timing for this fighter: base timing with its wind-up multiplier applied to anticipation. */
+export function fighterTiming(f: Fighter, action: AttackAction) {
+  const t = ATTACK_TIMING[action];
+  const w = f.stats.windup ?? 1;
+  return w === 1 ? t : { ...t, anticipation: t.anticipation * w };
+}
+
 export function attackDuration(f: Fighter, action: AttackAction) {
-  return timingTotal(ATTACK_TIMING[action], f.stats.attackSpeed);
+  return timingTotal(fighterTiming(f, action), f.stats.attackSpeed);
 }
 
 export function attackPhase(f: Fighter) {
   if (!isAttacking(f)) return null;
-  return attackPhaseAt(ATTACK_TIMING[f.action as AttackAction], f.actionT, f.stats.attackSpeed);
+  return attackPhaseAt(fighterTiming(f, f.action as AttackAction), f.actionT, f.stats.attackSpeed);
 }
 
 /** Effective melee reach for the current state. */
@@ -340,7 +347,7 @@ export function updateFighter(world: World, f: Fighter, dt: number) {
     case 'finisher': {
       let ph = attackPhase(f)!;
       if (f.action === 'plunge') {
-        const t = ATTACK_TIMING.plunge;
+        const t = fighterTiming(f, 'plunge');
         const swingEnd = (t.anticipation + t.swing) / f.stats.attackSpeed;
         if (ph.phase === 'anticipation') f.vy = Math.max(f.vy * 0.6, 0.4); // hang at the apex
         else if (!f.ai.slammed) {
@@ -459,8 +466,12 @@ function applyPhysics(world: World, f: Fighter, dt: number, wantX: number) {
   }
 
   // Arena bounds.
-  const minX = f.isPlayer || f.team === 0 ? world.bounds.minX : world.bounds.minX - 6;
-  const maxX = f.isPlayer || f.team === 0 ? world.bounds.maxX : world.bounds.maxX + 6;
+  // Enemies may walk in from off-screen, but once inside the arena they stay reachable
+  // (otherwise kiting archers could retreat beyond the locked wave arena).
+  if (f.team === 1 && !f.ai.inArena && f.x >= world.bounds.minX && f.x <= world.bounds.maxX) f.ai.inArena = 1;
+  const slack = f.look.model === 'bird' ? 1e6 : f.isPlayer || f.team === 0 || f.ai.inArena || f.isCommander ? 0 : 6;
+  const minX = world.bounds.minX - slack;
+  const maxX = world.bounds.maxX + slack;
   if (f.x < minX) {
     f.x = minX;
     f.vx = Math.max(0, f.vx);

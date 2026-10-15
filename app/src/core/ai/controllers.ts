@@ -77,6 +77,19 @@ function hasToken(f: Fighter, target: Fighter, ctx: AiContext): boolean {
   return false;
 }
 
+/**
+ * Shared attack slot on the player: rank-and-file enemies take turns swinging so the hero is
+ * never mobbed by simultaneous blows (readability + fairness). Bosses ignore it.
+ */
+const PLAYER_SLOT_GAP = 1.3;
+function claimSlot(f: Fighter, target: Fighter, ctx: AiContext): boolean {
+  if (!target.isPlayer || f.isBoss) return true;
+  const t = ctx.world.time;
+  if ((target.ai.slotFreeAt ?? 0) > t) return false;
+  target.ai.slotFreeAt = t + PLAYER_SLOT_GAP * ctx.world.rng.range(0.85, 1.2);
+  return true;
+}
+
 function releaseToken(f: Fighter) {
   f.ai.engaging = -1;
 }
@@ -209,7 +222,7 @@ const melee: Controller = (f, ctx, out) => {
     return;
   }
   if (dist <= reach + 0.1) {
-    if ((f.ai.nextAttack ?? 0) < w.time) {
+    if ((f.ai.nextAttack ?? 0) < w.time && claimSlot(f, t, ctx)) {
       if (w.rng.chance(0.2)) out.heavy = true;
       else out.light = true;
       // Footsoldiers attack at a readable rhythm so the player can block, dodge and counter.
@@ -252,9 +265,11 @@ const archer: Controller = (f, ctx, out) => {
     if ((f.x <= w.bounds.minX - 5 || f.x >= w.bounds.maxX + 5 || w.rng.chance(0.02)) && dist < 1.8) out.light = true;
     return;
   }
-  if ((f.ai.nextShot ?? w.time + w.rng.range(0.6, 1.8)) < w.time && dist < 18) {
+  if ((f.ai.nextShot ?? w.time + w.rng.range(0.6, 1.8)) < w.time && dist < 18 && (t.ai.shotFreeAt ?? 0) <= w.time) {
     out.special = 'shoot';
-    f.ai.nextShot = w.time + w.rng.range(2.0, 3.4);
+    f.ai.nextShot = w.time + w.rng.range(3.4, 5.2);
+    // Stagger volleys: archers take turns so arrows arrive at a blockable rhythm.
+    t.ai.shotFreeAt = w.time + 1.4;
     return;
   }
   if (f.ai.nextShot === undefined) f.ai.nextShot = w.time + w.rng.range(0.6, 1.8);
@@ -279,7 +294,7 @@ const skirmisher: Controller = (f, ctx, out) => {
     out.moveX = dist < hold ? -dir : dist > hold + 1 ? dir : 0;
     return;
   }
-  if (dist <= reachOf(f) && (f.ai.nextAttack ?? 0) < w.time) {
+  if (dist <= reachOf(f) && (f.ai.nextAttack ?? 0) < w.time && claimSlot(f, t, ctx)) {
     out.light = true;
     f.ai.nextAttack = w.time + w.rng.range(1.2, 2.2);
     if (w.rng.chance(0.4)) {
@@ -302,7 +317,7 @@ const brute: Controller = (f, ctx, out) => {
     return;
   }
   if (dist <= reachOf(f) + 0.1) {
-    if ((f.ai.nextAttack ?? 0) < w.time) {
+    if ((f.ai.nextAttack ?? 0) < w.time && claimSlot(f, t, ctx)) {
       if (w.rng.chance(f.isBoss ? 0.5 : 0.4)) out.heavy = true;
       else out.light = true;
       f.ai.nextAttack = w.time + (f.isBoss ? w.rng.range(1.0, 2.0) : w.rng.range(1.6, 2.8));
@@ -323,7 +338,7 @@ const beast: Controller = (f, ctx, out) => {
     out.moveX = -dir;
     return;
   }
-  if (dist < 2.6 && (f.ai.nextAttack ?? 0) < w.time) {
+  if (dist < 2.6 && (f.ai.nextAttack ?? 0) < w.time && claimSlot(f, t, ctx)) {
     if (w.rng.chance(0.5)) out.heavy = true;
     else out.light = true;
     f.ai.nextAttack = w.time + w.rng.range(1.0, 1.8);
@@ -341,7 +356,7 @@ const ghost: Controller = (f, ctx, out) => {
   face(f, t, out);
   const hover = 0.35 + Math.sin(w.time * 2 + f.id) * 0.25;
   f.y += (hover - f.y) * Math.min(1, ctx.dt * 3);
-  if (dist <= reachOf(f) && (f.ai.nextAttack ?? 0) < w.time) {
+  if (dist <= reachOf(f) && (f.ai.nextAttack ?? 0) < w.time && claimSlot(f, t, ctx)) {
     out.light = true;
     f.ai.nextAttack = w.time + w.rng.range(1.0, 1.8);
   } else if (dist > reachOf(f) * 0.7) out.moveX = dir * 0.9;

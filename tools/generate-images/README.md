@@ -98,3 +98,7 @@ Asset schema:
 5. Commit the prompt JSON and the `.webp` output, and update `docs/contracts.md` and `ASSETS.md` when there is a new path.
 
 `.cache/` (raw downloads, previews, usage log) and `node_modules/` are git-ignored.
+
+## Retouching
+
+`npm run retouch` applies `src/retouch.mjs`: targeted, API-free fixes that make bright artefacts (a stray figure in `env/swamp-coast/fore`, smoke puffs in `env/fortress-airspace/far`) transparent. Run it after regenerating those layers only if the artefacts reappear.
