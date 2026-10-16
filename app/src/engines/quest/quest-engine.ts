@@ -205,7 +205,8 @@ export class QuestEngine extends EngineBase {
     const center = clamp(p.x + 3, half, s.length - half);
     this.wave = { index: i, spawned: 0, ids: [], nextSpawn: 0, lockMin: center - half, lockMax: center + half };
     this.lockCam = { min: center - half, max: center + half };
-    w.bounds = { minX: center - half + 0.4, maxX: center + half - 0.4 };
+    // Keep fighters well inside the locked view so nobody is clipped by the screen edge.
+    w.bounds = { minX: center - half + 1.4, maxX: center + half - 1.4 };
     this.phase = 'wave';
     w.emit({ type: 'wave-start', index: i, count: s.waves[i].count });
     this.banner(`Wave ${i + 1}`, `${s.waves[i].count} enemies`);
@@ -476,7 +477,7 @@ export class QuestEngine extends EngineBase {
     } else if (s.kind === 'flight') {
       const p = w.player;
       h.progress = p ? clamp(p.x / s.length, 0, 1) : 0;
-      h.objective = s.landing ? 'Fly on and land safely' : 'Fly through the storm';
+      h.objective = s.landing ? 'Fly on and land safely' : 'Fly on to the next stage →';
       if (s.landing && p && p.x > s.length - 25) h.prompt = 'Descend gently onto the landing zone (S)';
     }
     h.allies = [...this.allies, ...(this.escort ? [this.escort] : [])]

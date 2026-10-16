@@ -119,14 +119,18 @@ describe('missions catalog', () => {
     ]);
   });
 
-  it('uses the plausibility floors (duels 20 s, quests/open-field 60 s, m07 15 s)', () => {
+  it('uses the plausibility floors (2-round duels 10 s, m15 15 s, m07 8 s, open-field 30 s, quests 60 s)', () => {
     for (const mission of Object.values(MISSIONS_CATALOG)) {
       const expected =
         mission.id === 'm07'
-          ? 15_000
-          : mission.engine === 'duel'
-            ? 20_000
-            : 60_000;
+          ? 8_000
+          : mission.id === 'm15'
+            ? 15_000
+            : mission.engine === 'duel'
+              ? 10_000
+              : mission.engine === 'open-field'
+                ? 30_000
+                : 60_000;
       expect(mission.minDurationMs).toBe(expected);
       expect(mission.parTimeMs).toBeGreaterThan(mission.minDurationMs);
     }
