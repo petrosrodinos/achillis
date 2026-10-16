@@ -43,7 +43,7 @@ export const SCORING_CONFIG = {
   lives: { pointsPerLife: 200, maxCounted: 3 },
 
   difficultyMultiplier: {
-    squire: 0.75,
+    squire: 0.6,
     knight: 1.0,
     champion: 1.5,
   } satisfies Record<DifficultyId, number>,

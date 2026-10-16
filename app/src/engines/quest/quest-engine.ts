@@ -57,7 +57,7 @@ export class QuestEngine extends EngineBase {
     if (flying) p.y = FLIGHT_START_Y;
     for (const a of this.cfg.allies) this.allies.push(this.world.spawn(archetypeFor(a), { team: 0, x: 0, controller: 'ally' }));
     if (this.cfg.escort) {
-      this.escort = this.world.spawn(archetypeFor(this.cfg.escort.character), { team: 0, x: 0, controller: 'escort', isEscort: true, name: this.cfg.escort.name });
+      this.escort = this.world.spawn(archetypeFor(this.cfg.escort.character), { team: 0, x: 0, controller: 'escort', isEscort: true, name: this.cfg.escort.name, maxHp: 150 });
     }
     this.setupSlide();
     this.status = 'playing';

@@ -45,12 +45,12 @@ describe('computeScore', () => {
     expect(result.breakdown.find((b) => b.key === 'bosses')?.points).toBe(1000);
   });
 
-  it('applies difficulty multipliers (squire 0.75, champion 1.5) and clamps to maxScore', () => {
+  it('applies difficulty multipliers (squire 0.6, champion 1.5) and clamps to maxScore', () => {
     const squire = computeScore(m02, duelVictory({ difficulty: 'squire' }), {
       firstClear: false,
     });
-    expect(squire.score).toBe(2963);
-    expect(squire.rank).toBe('A');
+    expect(squire.score).toBe(2370);
+    expect(squire.rank).toBe('B');
 
     const champion = computeScore(
       m02,

@@ -105,7 +105,8 @@ export class World {
   /** Damage multiplier for a hit dealt by `attacker` (difficulty scaling). */
   damageScale(attacker: Fighter | null, target: Fighter): number {
     const d = DIFFICULTY[this.difficulty];
-    if (target.isPlayer && (!attacker || attacker.team !== target.team)) return d.enemyDamage;
+    // Difficulty protects the whole player side (hero, allies, escorts) from enemy damage.
+    if (target.team === 0 && (!attacker || attacker.team !== target.team)) return d.enemyDamage;
     if (attacker?.isPlayer) return d.playerDamage;
     return 1;
   }

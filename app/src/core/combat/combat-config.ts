@@ -147,7 +147,7 @@ export const LIVES = {
 
 /** Difficulty scales enemy damage dealt to the player and AI skill. */
 export const DIFFICULTY: Record<Difficulty, { enemyDamage: number; playerDamage: number; aiSkill: number; label: string }> = {
-  squire: { enemyDamage: 0.6, playerDamage: 1.2, aiSkill: 0.55, label: 'Squire' },
+  squire: { enemyDamage: 0.45, playerDamage: 1.3, aiSkill: 0.45, label: 'Squire' },
   knight: { enemyDamage: 1, playerDamage: 1, aiSkill: 0.75, label: 'Knight' },
   champion: { enemyDamage: 1.3, playerDamage: 0.95, aiSkill: 1, label: 'Champion' },
 };
