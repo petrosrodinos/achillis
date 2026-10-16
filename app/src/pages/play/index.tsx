@@ -78,7 +78,14 @@ export default function PlayPage() {
   const device = useDeviceSupport();
   const missionId = (MISSION_IDS as readonly string[]).includes(rawId ?? '') ? (rawId as MissionId) : null;
   const meta = missionId ? MISSIONS_BY_ID[missionId] : null;
-  const training = useMemo(() => (missionId === 'm07' ? parseTraining(search, me?.unlockedCharacters ?? ['white-knight']) : undefined), [missionId, search, me?.unlockedCharacters]);
+  // Key on the unlock list's contents (not the session object), so a session refresh mid-bout
+  // never rebuilds the training engine and restarts the fight.
+  const unlockedKey = (me?.unlockedCharacters ?? ['white-knight']).join(',');
+  const searchKey = search.toString();
+  const training = useMemo(
+    () => (missionId === 'm07' ? parseTraining(new URLSearchParams(searchKey), unlockedKey.split(',') as CharacterId[]) : undefined),
+    [missionId, searchKey, unlockedKey],
+  );
 
   const [phase, setPhase] = useState<Phase>('loading');
   const [progress, setProgress] = useState(0);
